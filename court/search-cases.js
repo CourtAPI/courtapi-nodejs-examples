@@ -3,31 +3,30 @@
 // Search for a court case in PACER and import it into CourtAPI
 //
 
-var CourtApi = require('court_api');
-var handlers = require('../inc/handlers');
-var auth     = require('../inc/auth');
+const CourtApi = require('court_api');
+const handlers = require('../inc/handlers');
+const auth     = require('../inc/auth');
 
 if (process.argv.length < 4) {
   console.error("Usage: " + __filename + " <court> <case number>");
   process.exit(-1);
 }
 
-var court      = process.argv[2];
-var caseNumber = process.argv[3];
+const court      = process.argv[2];
+const caseNumber = process.argv[3];
 
 // initialize auth headers
 auth.init();
 
-var caseApi = new CourtApi.PacerCaseLookupApi();
+const caseApi = new CourtApi.PacerCaseLookupApi();
 
-var search = {
+const search = {
   openCases: true,
   caseNo: caseNumber
 };
 
-caseApi.searchCourtCases(court, search, function (error, data, response) {
-  if (error)
-    return handlers.errorHandler(error);
+caseApi.searchCourtCases(court, search, (error, data, response) => {
+  if (error) return handlers.errorHandler(error);
 
   console.log(JSON.stringify(response.body, null, 2));
 });

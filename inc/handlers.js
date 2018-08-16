@@ -8,7 +8,7 @@ module.exports = {
     process.exit(-1);
   },
   promiseCallback: function (resolve, reject) {
-    return function (error, data, response) {
+    return (error, data, response) => {
       if (error)
         reject(error.response.body);
       else

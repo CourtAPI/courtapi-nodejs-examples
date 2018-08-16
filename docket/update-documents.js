@@ -9,23 +9,22 @@ if (process.argv.length < 5) {
   process.exit(-1);
 }
 
-var court      = process.argv[2];
-var caseNumber = process.argv[3];
-var docketSeq  = process.argv[4];
+const court      = process.argv[2];
+const caseNumber = process.argv[3];
+const docketSeq  = process.argv[4];
 
-var CourtApi = require('court_api');
-var auth     = require('../inc/auth');
-var handlers = require('../inc/handlers');
+const CourtApi = require('court_api');
+const auth     = require('../inc/auth');
+const handlers = require('../inc/handlers');
 
 // initialize auth headers
 auth.init();
 
-var queryApi = new CourtApi.QueryApi();
+const queryApi = new CourtApi.QueryApi();
 
 queryApi.updateDocketDocuments(court, caseNumber, docketSeq,
-  function (error, data, response) {
-    if (error)
-      return handlers.errorHandler(error);
+  (error, data, response) => {
+    if (error) return handlers.errorHandler(error);
 
     console.log(JSON.stringify(response.body, null, 2));
   }

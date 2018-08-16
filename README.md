@@ -53,14 +53,14 @@ library, and set up authentication.
 E.g.:
 
 ```javascript
-  var CourtApi = require('court_api');
+  const CourtApi = require('court_api');
 ```
 
 An `auth.js` is provided in this directory that sets up the auth headers for
 you:
 
 ```javascript
-  var auth = require('./inc/auth');
+  const auth = require('./inc/auth');
   auth.init();
 ```
 
@@ -89,7 +89,7 @@ The following programs demonstrate this functionality:
 These functions are exposed by the `PacerCredentialsApi'.
 
 ```javascript
-  var pacerApi = new CourtApi.PacerCredentialsApi();
+  const pacerApi = new CourtApi.PacerCredentialsApi();
 ```
 
 ### Save PACER Credentials
@@ -102,12 +102,12 @@ endpoint is handled by the `saveCredentials()` method in
 
 Sample Code:
 ```javascript
-  var credentials = {
+  const credentials = {
     pacerUser: '[your pacer username]',
     pacerPass: '[your pacer password]'
   };
 
-  var pacerApi = new CourtApi.PacerCredentialsApi();
+  const pacerApi = new CourtApi.PacerCredentialsApi();
 
   pacerApi.saveCredentials(credentials,
     function (error, data, response) {
@@ -134,7 +134,7 @@ method is handled by the `getCredentials()` method in the
 
 Sample Code:
 ```javascript
-  var pacerApi = new CourtApi.PacerCredentialsApi();
+  const pacerApi = new CourtApi.PacerCredentialsApi();
 
   pacerApi.getCredentials(
     function (error, data, response) {
@@ -163,7 +163,7 @@ is handled by the `deleteCredentials()` method of the
 
 Sample Code:
 ```javascript
-  var pacerApi = new CourtApi.PacerCredentialsApi();
+  const pacerApi = new CourtApi.PacerCredentialsApi();
 
   pacerApi.deleteCredentials(function (error, data, response) {
     console.log(response.body);
@@ -189,7 +189,7 @@ This snippet displays all test bankruptcy courts.
 
 Sample Code:
 ```javascript
-  var courtApi = new CourtApi.CourtsApi();
+  const courtApi = new CourtApi.CourtsApi();
 
   courtApi.getCourts(
     { test: true, type: 'bankruptcy' },
@@ -236,7 +236,7 @@ This endpoint shows the details about a specific court.  This is handled by the
 
 Sample Code:
 ```javascript
-  var courtApi = new CourtApi.CourtsApi();
+  const courtApi = new CourtApi.CourtsApi();
 
   courtApi.getCourtDetails("orbtrain", function (error, data, response) {
     console.log(JSON.stringify(response.body, null, 2));
@@ -371,12 +371,12 @@ documentation for other search terms that could be used.
 
 Sample Code:
 ```javascript
-  var search = {
+  const search = {
     openCases: true,
     case_no: caseNumber
   };
 
-  var caseApi = new CourtApi.PacerCaseLookupApi();
+  const caseApi = new CourtApi.PacerCaseLookupApi();
 
   caseApi.searchCourtCases(court, search, function (error, data, response) {
     console.log(JSON.stringify(response.body, null, 2));
@@ -430,7 +430,7 @@ This endpoint shows the docket entries for a case.  This is handled by the
 
 Sample Code:
 ```javascript
-  var docketOptions = {
+  const docketOptions = {
     pageSize: 10,         // number of docket entries to show per page
     page: 1,              // page number to show
     sortOrder: "desc",     // Show the most recent items first
@@ -536,9 +536,9 @@ by the `updateDockets()` method in the `QueryApi`.
 
 Sample Code:
 ```javascript
-  var queryApi = new CourtApi.QueryApi();
+  const queryApi = new CourtApi.QueryApi();
 
-  var options = {};
+  const options = {};
 
   queryApi.updateDockets(courtCode, caseNumber, options, callback);
 ```
@@ -699,7 +699,7 @@ method of the `CaseApi`.
 
 Sample Code:
 ```javascript
-  var caseApi = new CourtApi.CaseApi();
+  const caseApi = new CourtApi.CaseApi();
 
   caseApi.getDocketEntry(court, caseNumber, docketSeq,
     function (error, data, response) {
@@ -769,7 +769,7 @@ entry. This is handled by the `getDocketDocuments()` method of the `CaseApi`.
 
 Sample Code:
 ```javascript
-  var caseApi = new CourtApi.CaseApi();
+  const caseApi = new CourtApi.CaseApi();
 
   caseApi.getDocketDocuments(court, caseNumber, docketSeq,
     function (error, data, response) {
@@ -841,7 +841,7 @@ the `QueryApi`.
 
 Sample Code:
 ```javascript
-  var queryApi = new CourtApi.QueryApi();
+  const queryApi = new CourtApi.QueryApi();
 
   queryApi.updateDocketDocuments(court, caseNumber, docketSeq,
     function (error, data, response) {
@@ -912,7 +912,7 @@ This endpoint is handled by the `getDocketDocument()` endpoint in the
 
 Sample Code:
 ```javascript
-  var caseApi = new CourtApi.CaseApi();
+  const caseApi = new CourtApi.CaseApi();
 
   caseApi.getDocketDocument(court, caseNumber, docketSeq, partNo,
     function (error, data, response) {
@@ -993,7 +993,7 @@ handled by the `buyDocketDocument()` method in the `QueryApi`.
 
 Sample Code:
 ```javascript
-  var queryApi = new CourtApi.QueryApi();
+  const queryApi = new CourtApi.QueryApi();
 
   queryApi.buyDocketDocument(court, caseNumber, docketSeq, partNo,
     function (error, data, response) {
@@ -1078,9 +1078,9 @@ Searching for the case is the same as before, using the `searchCourtCases()` or
 
 Sample Code:
 ```javascript
-  var caseApi = new CourtApi.PacerCaseLookupApi();
+  const caseApi = new CourtApi.PacerCaseLookupApi();
 
-  var search = {
+  const search = {
     openCases: true,
     caseNo: caseNumber
   };
@@ -1131,10 +1131,10 @@ This endpoint finds the claims entries for a case in the CourtAPI database.
 
 Sample Code:
 ```
-  var caseApi = new CourtApi.CaseApi();
+  const caseApi = new CourtApi.CaseApi();
 
   // many things are possible here.
-  var search = {
+  const search = {
     // only show entries containing a keyword
     searchKeyword: 'bloomingdales',
     pageSize: 10,
@@ -1300,7 +1300,7 @@ PACER into CourtAPI.  This is handled by the `updateClaims()` method in the
 
 Sample Code:
 ```javascript
-  var queryApi = new CourtApi.QueryApi();
+  const queryApi = new CourtApi.QueryApi();
 
   // you can restrict what claims are fetched with an options argument,
   // or just use "null" to get the entire claims register
@@ -1474,7 +1474,7 @@ handled by the method `getClaim()` in the `CaseApi`.
 
 Sample Code:
 ```javascript
-  var caseApi = new CourtApi.CaseApi();
+  const caseApi = new CourtApi.CaseApi();
 
   caseApi.getClaim(court, caseNumber, claimNumber,
     function (error, data, response) {
@@ -1567,7 +1567,7 @@ the `getClaimParts()` method in the `CaseApi`
 
 Sample Code:
 ```javascript
-  var caseApi = new CourtApi.CaseApi();
+  const caseApi = new CourtApi.CaseApi();
 
   caseApi.getClaimParts(court, caseNumber, claimNumber, claimSeqNo,
     function (error, data, response) {
@@ -1637,7 +1637,7 @@ This endpoint updates a claim document part from PACER. This done via the
 
 Sample Code:
 ```javascript
-  var queryApi = new CourtApi.QueryApi();
+  const queryApi = new CourtApi.QueryApi();
 
   queryApi.updateClaimParts(court, caseNumber, claimNumber, claimSeqNo,
     function (error, data, response) {
@@ -1691,7 +1691,7 @@ This is handled by the `getClaimDocument()` method in the `CaseApi`.
 
 Sample Code:
 ```javascript
-  var caseApi = new CourtApi.CaseApi();
+  const caseApi = new CourtApi.CaseApi();
 
   caseApi.getClaimDocument(court, caseNumber, claimNumber, claimSeqNo, claimPartNo,
     function (error, data, response) {
@@ -1758,7 +1758,7 @@ This is handled by the `buyClaimDocument()` method in the `QueryApi`.
 
 Sample Code:
 ```javascript
-  var queryApi = new CourtApi.QueryApi();
+  const queryApi = new CourtApi.QueryApi();
 
   queryApi.buyClaimDocument(court, caseNumber, claimNumber, claimSeqNo, claimPartNo,
     function (error, data, response) {
