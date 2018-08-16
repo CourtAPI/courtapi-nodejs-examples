@@ -1,2 +1,5 @@
 node_modules/
 README.html
+templates.js
+claims-register.html
+docket-sheet.html
