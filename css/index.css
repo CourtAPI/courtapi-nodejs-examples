@@ -1,0 +1,54 @@
+body {
+  margin: 1em;
+}
+
+.docket-entry {
+  display: flex;
+}
+
+.docket-entry p {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.docket-entry .date {
+  width: 105px;
+}
+
+.docket-entry .number {
+  width: 60px;
+}
+
+.docket-entry .text {
+  width: 920px;
+}
+
+.claim-entry {
+  display: flex;
+}
+
+.claim-entry p {
+  margin: 0;
+}
+
+.claim-entry .number {
+  width: 60px;
+}
+
+.claim-entry .date {
+  width: 105px;
+}
+
+.claim-entry .creditor {
+  width: 660px;
+}
+
+.claim-entry .amount {
+  width: 140px;
+  text-align: right;
+  padding-right: 1em;
+}
+
+.claim-entry .updated {
+  width: 105px;
+}
