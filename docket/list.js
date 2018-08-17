@@ -38,7 +38,6 @@ async function getDocketPage(court, caseNumber, page) {
 }
 
 async function main() {
-  console.log("in main");
   let page = 0;
   let totalPages = 0;
 
@@ -46,8 +45,6 @@ async function main() {
     page = page + 1;
 
     const response = await getDocketPage(court, caseNumber, page);
-
-    console.log(response.entries.content);
 
     if (response.entries.total_items == 0) {
       console.log("No docket entries - purchase docket sheet from PACER");
