@@ -11,7 +11,7 @@ This directory contains a set of nodeJS scripts demonstrating how to accomplish:
 
 - NodeJS version 8.x or later.
 - npm
-- yarn
+- yarn (`npm install -g yarn`)
 - make
 
 ## Client Library
