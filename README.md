@@ -16,19 +16,23 @@ This directory contains a set of nodeJS scripts demonstrating how to accomplish:
 
 ## Client Library
 
-The Swagger client library needs to be generated.  This can be done at the top
-of the repository with `go.sh` as follows:
+The `court_api` client library needs to be installed.  This library is
+available at https://github.com/CourtAPI/courtapi-javascript-client
 
 ```shell
-  go.sh courtapi-swagger-gen
-
-  # substitute 'training' or 'live' for 'local' to generate a library for the
-  # live ot training site.
-  go.sh courtapi-codegen javascript local
+  git clone https://github.com/CourtAPI/courtapi-javascript-client
+  cd courtapi-javascript-client
+  npm install
+  npm link
 ```
+## Install Node Pacakges
 
-Finally, run `make` in this directory to link to the swagger client node
-library.
+In this directory, install the prerequisites, and link the `court_api` library:
+
+```shell
+  yarn install
+  npm link court_api
+```
 
 ## Configuration
 
