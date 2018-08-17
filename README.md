@@ -232,7 +232,7 @@ Usage `court/search.js`
 
 Example Output:
 ```shell
-  $ search-courts.js
+  $ ./court/search.js
   {
     "code": "akbtest",
     "links": {
