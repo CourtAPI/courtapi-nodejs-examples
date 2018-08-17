@@ -24,7 +24,7 @@ of the repository with `go.sh` as follows:
 
   # substitute 'training' or 'live' for 'local' to generate a library for the
   # live ot training site.
-  go.sh gourtapi-codegen javascript local
+  go.sh courtapi-codegen javascript local
 ```
 
 Finally, run `make` in this directory to link to the swagger client node
@@ -373,7 +373,7 @@ Sample Code:
 ```javascript
   const search = {
     openCases: true,
-    case_no: caseNumber
+    caseNo: caseNumber
   };
 
   const caseApi = new CourtApi.PacerCaseLookupApi();
