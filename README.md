@@ -60,8 +60,8 @@ E.g.:
   const CourtApi = require('court_api');
 ```
 
-An `auth.js` is provided in this directory that sets up the auth headers for
-you:
+An `auth.js` is provided in the `inc` directory that sets up the authentication
+headers for you:
 
 ```javascript
   const auth = require('./inc/auth');
@@ -84,6 +84,33 @@ argument.  The callback signature looks like:
 
 Most of the example code in this document assumes you handled the error for
 brevity.
+
+A Node Promise style callback is included in `inc/handlers.js` that will
+`resolve()` the response body content, and `reject()` the error content on
+error.
+
+E.g.:
+
+```javascript
+  return new Promise((resolve, reject) => {
+    caseApi.getDockets(court, caseNumber, options, handlers.promiseCallback(resolve, reject))
+  });
+```
+
+This is equivalent to:
+
+```javascript
+  return new Promise((resolve, reject) => {
+    caseApi.getDockets(court, caseNumber, options,
+      (error, data, response) => {
+        if (error)
+          reject(error.response.body);
+        else
+          resolve(response.body);
+      }
+    );
+  });
+```
 
 ## Manage your PACER credentials
 
