@@ -18,7 +18,16 @@ const caseNumber = process.argv[3];
 // initialize auth headers
 auth.init();
 
-const options = { };
+//
+// Possible options.  Default is to update all dockets
+//
+const options = {
+  // dateFrom: "07/01/2007",
+  // dateTo: "08/01/2007",
+  // docFrom: 1,
+  // docTo: 56,
+  // minimizeHeader: true          // Do not buy the docket header
+};
 
 const queryApi = new CourtApi.QueryApi();
 
