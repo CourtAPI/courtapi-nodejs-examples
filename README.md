@@ -175,7 +175,7 @@ Usage: `pacer/show-credentials.js`
 
 Example:
 ```shell
-  $ pacer/show-credentials.js test dummy
+  $ pacer/show-credentials.js
   App ID: [your app id]
   PACER User: test
 ```
@@ -324,7 +324,7 @@ Example:
 This indicates the case needs to be imported from PACER by doing a search:
 
 ```shell
-  $ court/search.js orbtrain 6:14-bk-63619
+  $ court/search-cases.js orbtrain 6:14-bk-63619
 ```
 
 And then re-run `court/show-case.js`
