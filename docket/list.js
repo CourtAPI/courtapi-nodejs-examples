@@ -57,8 +57,7 @@ async function main() {
 
     console.log("// -- PAGE " + page + "/" + totalPages + " --");
 
-    for (const entry of response.entries.content)
-      console.log(JSON.stringify(entry, null, 2));
+    console.log(JSON.stringify(response, null, 2));
   } while (page < totalPages);
 }
 
