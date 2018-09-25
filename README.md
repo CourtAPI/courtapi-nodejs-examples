@@ -333,57 +333,42 @@ And then re-run `court/show-case.js`
   $ court/show-case.js orbtrain 6:14-bk-63619
   {
     "case": {
-      "appeal_case_uuid": null,
       "assets": "Unknown",
       "assigned_to": null,
-      "case_chapter_id": 1,
-      "case_court_id": 221,
-      "case_id": 5083526,
-      "case_id_external": 458895,
-      "case_no": "6:14-bk-63618",
-      "case_petition_id": 1,
-      "case_title": "Joseph Wayne Sample and Sarah Lynn Sample",
-      "case_type_id": 1,
-      "case_uuid": "orbtrain_458895",
+      "case_category": "bankruptcy",
+      "case_no": "6:14-bk-63619",
+      "case_title": "Somewhere Someone",
+      "case_type": "bk",
       "cause": null,
       "ch11_type": null,
-      "ch11_type_code": null,
       "chapter": 7,
-      "citation": "Bankr.D.Or.TRAIN.",
-      "court": "orbtrain",
-      "court_name": "orbtrain",
-      "created": "2018-07-31 22:46:26.405004+00",
+      "court_code": "orbtrain",
       "date_closed": null,
       "date_discharged": null,
-      "date_filed": "10/15/2014",
-      "date_of_last_filing": "10/15/2014",
-      "date_plan_confirmed": null,
+      "date_filed": "11/19/2014",
+      "date_of_last_filing": "11/19/2014",
       "date_terminated": null,
-      "disabled": 0,
       "disposition": null,
-      "has_asset": 0,
-      "industry": null,
-      "is_business_bankruptcy": null,
+      "has_asset": "No",
       "judge_name": null,
       "jurisdiction": null,
       "jury_demand": null,
-      "lead_case_uuid": null,
-      "liabilities": "Unknown",
-      "modified": "2018-08-01 16:50:52.145018+00",
-      "naics_code": null,
-      "nature_of_debt": null,
+      "modified": "2018-09-25T17:09:34.803730Z",
       "nature_of_suit_code": null,
-      "referred_to": null,
-      "timestamp": 1533142252.14502,
-      "title": "Joseph Wayne Sample and Sarah Lynn Sample",
-      "uri_id": 85055151,
-      "website": null
+      "petition_type": "v",
+      "plan_confirmed": null,
+      "referred_to": null
     },
     "links": {
+      "pacer-update": {
+        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619",
+        "method": "POST"
+      },
       "self": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63618"
+        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619"
       }
-    }
+    },
+    "menu": {}
   }
 ```
 
@@ -418,24 +403,24 @@ Example:
   {
     "cases": [
       {
-        "case_no": "6:14-bk-63618",
-        "case_title": "Joseph Wayne Sample and Sarah Lynn Sample",
+        "case_no": "6:14-bk-63619",
+        "case_title": "Somewhere Someone",
         "chapter": 7,
         "court_code": "orbtrain",
         "date_closed": null,
-        "date_filed": "10/15/2014",
+        "date_filed": "11/19/2014",
         "lead_bk_case_no": null,
         "lead_bk_case_title": null,
         "links": {
           "dockets": {
-            "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63618/dockets"
+            "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets"
           },
           "self": {
-            "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63618"
+            "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619"
           }
         },
-        "timestamp": 1533142252.14502,
-        "title": "Joseph Wayne Sample and Sarah Lynn Sample"
+        "timestamp": "2018-09-25T17:09:34.803730Z",
+        "title": "Somewhere Someone"
       }
     ],
     "parties": [],
@@ -492,6 +477,7 @@ For case where the docket is already in CourtAPI, the output looks like this:
 
 ```shell
   $ docket/list.js orbtrain 6:14-bk-63619
+  // -- PAGE 1/1 --
   {
     "entries": {
       "content": [
@@ -508,12 +494,20 @@ For case where the docket is already in CourtAPI, the output looks like this:
               "key_phrase": "FINAL Installment Payment due"
             }
           ],
-          "case_uuid": "orbtrain_458907",
+          "binder": {
+            "documents": [],
+            "links": {
+              "pacer-update": {
+                "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/4.00000/documents",
+                "method": "POST"
+              }
+            }
+          },
           "date_filed": "11/19/2014",
           "docket_no": 4,
           "docket_seq": "4.00000",
           "docket_text": "Amended Order To Pay Filing Fees in Installments 1st Installment Payment due by 12/19/2014. FINAL Installment Payment due by 1/20/2015. (jrp) (Entered: 11/19/2014)",
-          "docket_uri": null,
+          "has_pdf_link_on_pacer": false,
           "links": {
             "documents": {
               "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/4.00000/documents"
@@ -522,22 +516,91 @@ For case where the docket is already in CourtAPI, the output looks like this:
               "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/4.00000"
             }
           },
-          "timestamp": 1533079112.11464
+          "timestamp": "2018-09-25T17:13:46.039520Z"
         },
-        ...
+        {
+          "annotations": [
+            {
+              "datetime": "2014-12-19",
+              "highlight_phrase": "12/19/2014",
+              "key_phrase": "Order Granting 2 Application to Pay Filing Fee in Installments filed by Debtor Somewhere Someone 1st Installment Payment due"
+            },
+            {
+              "datetime": "2015-01-20",
+              "highlight_phrase": "1/20/2015",
+              "key_phrase": "2nd Installment Payment due"
+            },
+            {
+              "datetime": "2015-02-17",
+              "highlight_phrase": "2/17/2015",
+              "key_phrase": "FINAL Installment Payment due"
+            }
+          ],
+          "binder": {
+            "documents": [
+              {
+                "cost": "0.20",
+                "description_html": null,
+                "docket_no": 3,
+                "filename": null,
+                "free": null,
+                "friendly_name": null,
+                "links": {
+                  "order_pdf": {
+                    "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents/1"
+                  }
+                },
+                "number": 1,
+                "pages": 2
+              }
+            ],
+            "links": {
+              "pacer-update": {
+                "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents",
+                "method": "POST"
+              }
+            }
+          },
+          "date_filed": "11/19/2014",
+          "docket_no": 3,
+          "docket_seq": "3.00000",
+          "docket_text": "Order Granting 2 Application to Pay Filing Fee in Installments filed by Debtor Somewhere Someone 1st Installment Payment due by 12/19/2014. 2nd Installment Payment due by 1/20/2015. FINAL Installment Payment due by 2/17/2015. (jrp) (Entered: 11/19/2014)",
+          "has_pdf_link_on_pacer": true,
+          "links": {
+            "documents": {
+              "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents"
+            },
+            "self": {
+              "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000"
+            }
+          },
+          "timestamp": "2018-09-25T17:13:46.039520Z"
+        },
       ],
       "links": {
         "self": {
-          "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets?sort_order=desc&page_size=10&page_number=1"
+          "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets?sort_order=desc&page_size=50&page_number=1"
         }
       },
-      "page_size": "10",
+      "page_size": "50",
       "total_items": 5,
       "total_pages": 1
     },
     "header": {
-      "html": "...",
-      "timestamp": 1533079112.0805
+      "assigned_to": " ",
+      "attorneys": [],
+      "chapter": "7",
+      "date_filed": "11/19/2014",
+      "has_asset": 0,
+      "header_html_timestamp": "2018-09-25T17:13:46Z",
+      "html": "... header HTML ...",
+      "is_header_html_valid": 1,
+      "latest_docket_number": 4,
+      "latest_history_number": null,
+      "latest_known_date_filed": "11/19/2014",
+      "modified": "2018-09-25T17:13:45.986760Z",
+      "trustees": [],
+      "voluntary": 1
     },
     "links": {
       "header": {
@@ -548,11 +611,20 @@ For case where the docket is already in CourtAPI, the output looks like this:
         "method": "POST"
       },
       "self": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets?sort_order=desc&page_size=10"
+        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets?sort_order=desc&page_size=50"
       }
     }
   }
 ```
+
+A few things to note here:
+
+* The individual docket entries are located under `entries.content`
+* Documents attached to individual docket entries are under the `binder` key
+  inside the docket entry.
+* If your final intention is merely to order or download PDF's no additional
+  calls are needed other than to go straight to the `order_pdf` endpoint for
+  the document.
 
 ### Purchase Docket Sheet
 
@@ -583,20 +655,18 @@ Example:
       "assigned_to": " ",
       "case_chapter_id": 1,
       "case_court_id": 221,
-      "case_id": 5083527,
       "case_id_external": 458907,
       "case_no": "6:14-bk-63619",
       "case_petition_id": 1,
       "case_title": "Somewhere Someone",
       "case_type_id": 1,
-      "case_uuid": "orbtrain_458907",
       "cause": null,
       "ch11_type": null,
       "ch11_type_code": null,
       "chapter": 7,
       "court": "orbtrain",
       "court_name": "orbtrain",
-      "created": "2018-07-31 22:57:56.468595+00",
+      "created": "2018-09-25T17:09:34.803729Z",
       "date_closed": null,
       "date_discharged": null,
       "date_filed": "11/19/2014",
@@ -606,116 +676,205 @@ Example:
       "disabled": 0,
       "disposition": null,
       "has_asset": 0,
-      "industry": null,
       "is_business_bankruptcy": 0,
       "judge_name": null,
       "jurisdiction": null,
       "jury_demand": null,
       "lead_case_uuid": null,
-      "liabilities": "Unknown",
-      "modified": "2018-08-01 19:40:08.356047+00",
-      "naics_code": null,
+      "links": {
+        "self": {
+          "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619"
+        }
+      },
+      "modified": "2018-09-25T17:13:45.986761Z",
       "nature_of_debt": null,
       "nature_of_suit_code": null,
       "ncl_parties": [],
       "referred_to": null,
       "schedule_ab": null,
-      "timestamp": 1533152408.35605,
+      "timestamp": "2018-09-25T17:13:45.986760Z",
       "title": "Somewhere Someone",
-      "uri_id": 85055152,
-      "website": null
+      "uri_id": 85055150
     },
-    "forms": {
-      "case_code": "6-14-bk-63619",
-      "date_from": null,
-      "date_to": null,
-      "date_type": "filed",
-      "doc_from": null,
-      "doc_to": null,
-      "show_terminated": 1
-    },
-    "items": {
-      "docket_headers": [
-        {
-          "meta": {
-            "case_uuid": "orbtrain_458907",
-            "filename": "<filename_is_ignored>",
-            "timestamp": 1533152406.84978
+    "dockets": [
+      {
+        "annotations": [],
+        "date_filed": "11/19/2014",
+        "docket_no": 0,
+        "docket_seq": 0,
+        "docket_text": "Commencement of Case. (jrp) (Entered: 11/19/2014)",
+        "has_pdf_link_on_pacer": false,
+        "sequence_number": "0.00000",
+        "timestamp": "2018-09-25T17:13:44.738708Z",
+        "title": "Commencement of Case. (jrp) (Entered: 11/19/2014)"
+      },
+      {
+        "annotations": [],
+        "date_filed": "11/19/2014",
+        "docket_no": "1",
+        "docket_seq": 0,
+        "docket_text": "Chapter 7 Voluntary Petition Filed by Somewhere Someone (jrp) (Entered: 11/19/2014)",
+        "has_pdf_link_on_pacer": false,
+        "sequence_number": "1.00000",
+        "timestamp": "2018-09-25T17:13:44.738708Z",
+        "title": "Chapter 7 Voluntary Petition Filed by Somewhere Someone (jrp) (Entered: 11/19/2014)"
+      },
+      {
+        "annotations": [],
+        "date_filed": "11/19/2014",
+        "docket_no": "2",
+        "docket_seq": 0,
+        "docket_text": "Application to Pay Filing Fee in Installments Filed by Debtor Somewhere Someone (jrp) (Entered: 11/19/2014)",
+        "has_pdf_link_on_pacer": false,
+        "sequence_number": "2.00000",
+        "timestamp": "2018-09-25T17:13:44.738708Z",
+        "title": "Application to Pay Filing Fee in Installments Filed by Debtor Somewhere Someone (jrp) (Entered: 11/19/2014)"
+      },
+      {
+        "annotations": [
+          {
+            "datetime": "2014-12-19",
+            "highlight_phrase": "12/19/2014",
+            "key_phrase": "Order Granting 2 Application to Pay Filing Fee in Installments filed by Debtor Somewhere Someone 1st Installment Payment due"
           },
-          "text": "... [ html ] ..."
-        }
-      ],
-      "dockets": [
-        {
-          "case_uuid": "orbtrain_458907",
-          "date_filed": "11/19/2014",
-          "docket_no": 0,
-          "docket_seq": 0,
-          "docket_text": "Commencement of Case. (jrp) (Entered: 11/19/2014)",
-          "docket_uri": null,
-          "filename": "orbtrain_458907_0_0",
-          "timestamp": 1533152406.84978,
-          "title": "Commencement of Case. (jrp) (Entered: 11/19/2014)"
-        },
-        ...
-      ],
-      "headers": [
-        {
-          "meta": {
-            "case_uuid": "orbtrain_458907",
-            "filename": "orbtrain_458907",
-            "timestamp": 1533152406.84978
+          {
+            "datetime": "2015-01-20",
+            "highlight_phrase": "1/20/2015",
+            "key_phrase": "2nd Installment Payment due"
           },
-          "text": {
-            "case_code": null,
-            "case_title": null,
-            "case_type": null,
-            "case_uuid": "orbtrain_458907",
-            "chapter": null,
-            "has_asset": null,
-            "title": null
+          {
+            "datetime": "2015-02-17",
+            "highlight_phrase": "2/17/2015",
+            "key_phrase": "FINAL Installment Payment due"
           }
-        },
-        ...
-      ],
-      "receipts": [
-        {
-          "meta": {
-            "case_uuid": "orbtrain_458907",
-            "filename": "b25e00ca-95c2-11e8-a309-f390bed07e61",
-            "timestamp": 1533152406.84978
+        ],
+        "date_filed": "11/19/2014",
+        "docket_no": 3,
+        "docket_seq": 0,
+        "docket_text": "Order Granting 2 Application to Pay Filing Fee in Installments filed by Debtor Somewhere Someone 1st Installment Payment due by 12/19/2014. 2nd Installment Payment due by 1/20/2015. FINAL Installment Payment due by 2/17/2015. (jrp) (Entered: 11/19/2014)",
+        "has_pdf_link_on_pacer": true,
+        "sequence_number": "3.00000",
+        "timestamp": "2018-09-25T17:13:44.738708Z",
+        "title": "Order Granting 2 Application to Pay Filing Fee in Installments filed by Debtor Somewhere Someone 1st Installment Payment due by 12/19/2014. 2nd Installment Payment due by 1/20/2015. FINAL Installment Payment due by 2/17/2015. (jrp) (Entered: 11/19/2014)"
+      },
+      {
+        "annotations": [
+          {
+            "datetime": "2014-12-19",
+            "highlight_phrase": "12/19/2014",
+            "key_phrase": "Amended Order To Pay Filing Fees in Installments 1st Installment Payment due"
           },
-          "text": {
-            "client_code": "",
-            "cost": "0.10",
-            "criteria": "14-63619-7 Fil or Ent: filed Doc From: 0 Doc To: 99999999 Term: included Format: html Page counts for documents: included",
-            "datetime": "08/01/2018 12:40:08",
-            "description": "Docket Report",
-            "pages": "1",
-            "user_id": "irtraining"
+          {
+            "datetime": "2015-01-20",
+            "highlight_phrase": "1/20/2015",
+            "key_phrase": "FINAL Installment Payment due"
           }
-        }
-      ]
-    },
-    "queries": {
-      "docket_headers": [
-        {
-          "meta": {
-            "case_uuid": "orbtrain_458907",
-            "filename": "orbtrain_458907_8d966bf13952d25dcc1b76511269eff3",
-            "timestamp": 1533152406.84978
-          },
-          "text": {
-            "attorneys": [],
-            "trustees": []
-          }
-        }
-      ]
+        ],
+        "date_filed": "11/19/2014",
+        "docket_no": "4",
+        "docket_seq": 0,
+        "docket_text": "Amended Order To Pay Filing Fees in Installments 1st Installment Payment due by 12/19/2014. FINAL Installment Payment due by 1/20/2015. (jrp) (Entered: 11/19/2014)",
+        "has_pdf_link_on_pacer": false,
+        "sequence_number": "4.00000",
+        "timestamp": "2018-09-25T17:13:44.738708Z",
+        "title": "Amended Order To Pay Filing Fees in Installments 1st Installment Payment due by 12/19/2014. FINAL Installment Payment due by 1/20/2015. (jrp) (Entered: 11/19/2014)"
+      }
+    ],
+    "receipts": {
+      "client_code": "",
+      "cost": "0.10",
+      "criteria": "14-63619-7 Fil or Ent: filed Doc From: 0 Doc To: 99999999 Term: included Format: html Page counts for documents: included",
+      "datetime": "09/25/2018 10:13:45",
+      "description": "Docket Report",
+      "pages": "1",
+      "timestamp": "2018-09-25T17:13:44.738708Z",
+      "user_id": "irtraining"
     }
   }
 ```
 
 Note that we have a receipt for the PACER charges in the response.
+
+#### Update docket entries, including documents
+
+Note that the above response does not include the docket `binder` attributes.
+The default is to not return these.  However, you can enable this with the
+`includeDocuments` form field.  If this field is passed (with a `true` value),
+then the document information will be fetched and returned with the response.
+This can make the docket update slower, but if your final intent is to buy or
+download PDFs, you can request that here and avoid the need to make another API
+call to `GET` the dockets again.  If you do not pass this value, the `binder`
+information will still be fetched, but this happens in the background and the
+response will not include the `binder`.
+
+```javascript
+  const queryApi = new CourtApi.QueryApi();
+
+  const options = {
+    includeDocuments: true
+  };
+
+  queryApi.updateDockets(courtCode, caseNumber, options, callback);
+```
+
+The response is identical to the previous `docket/update.js`, but docket
+entries will have a `binder` now. This gives you everything you need to go
+straight to the `order_pdf` step.
+
+```javascript
+  {
+    "annotations": [
+      {
+        "datetime": "2014-12-19",
+        "highlight_phrase": "12/19/2014",
+        "key_phrase": "Order Granting 2 Application to Pay Filing Fee in Installments filed by Debtor Somewhere Someone 1st Installment Payment due"
+      },
+      {
+        "datetime": "2015-01-20",
+        "highlight_phrase": "1/20/2015",
+        "key_phrase": "2nd Installment Payment due"
+      },
+      {
+        "datetime": "2015-02-17",
+        "highlight_phrase": "2/17/2015",
+        "key_phrase": "FINAL Installment Payment due"
+      }
+    ],
+    "binder": {
+      "documents": [
+        {
+          "cost": "0.20",
+          "description_html": null,
+          "docket_no": 3,
+          "filename": null,
+          "free": null,
+          "friendly_name": null,
+          "links": {
+            "order_pdf": {
+              "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents/1"
+            }
+          },
+          "number": 1,
+          "pages": 2
+        }
+      ],
+      "links": {
+        "pacer-update": {
+          "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents",
+          "method": "POST"
+        }
+      }
+    },
+    "date_filed": "11/19/2014",
+    "docket_no": 3,
+    "docket_seq": 0,
+    "docket_text": "Order Granting 2 Application to Pay Filing Fee in Installments filed by Debtor Somewhere Someone 1st Installment Payment due by 12/19/2014. 2nd Installment Payment due by 1/20/2015. FINAL Installment Payment due by 2/17/2015. (jrp) (Entered: 11/19/2014)",
+    "has_pdf_link_on_pacer": true,
+    "sequence_number": "3.00000",
+    "timestamp": "2018-09-25T17:34:00.138926Z",
+    "title": "Order Granting 2 Application to Pay Filing Fee in Installments filed by Debtor Somewhere Someone 1st Installment Payment due by 12/19/2014. 2nd Installment Payment due by 1/20/2015. FINAL Installment Payment due by 2/17/2015. (jrp) (Entered: 11/19/2014)"
+  },
+```
 
 ### Show a Specific Docket Entry
 
@@ -739,38 +898,67 @@ Usage: `docket/show-entry.js <court> <case number> <docket number>`
 
 Example:
 ```shell
-  $ docket/show-entry.js orbtrain 6:14-bk-63619 4.00000
+  $ docket/show-entry.js orbtrain 6:14-bk-63619 3.00000
   {
     "entry": {
-      "action": null,
+      "action": "https://ecf-train.orb.uscourts.gov/doc3/150014375608",
       "annotations": [
         {
           "datetime": "2014-12-19",
           "highlight_phrase": "12/19/2014",
-          "key_phrase": "Amended Order To Pay Filing Fees in Installments 1st Installment Payment due"
+          "key_phrase": "Order Granting 2 Application to Pay Filing Fee in Installments filed by Debtor Somewhere Someone 1st Installment Payment due"
         },
         {
           "datetime": "2015-01-20",
           "highlight_phrase": "1/20/2015",
+          "key_phrase": "2nd Installment Payment due"
+        },
+        {
+          "datetime": "2015-02-17",
+          "highlight_phrase": "2/17/2015",
           "key_phrase": "FINAL Installment Payment due"
         }
       ],
-      "case_docket_entry_id": 81274897,
-      "case_uuid": "orbtrain_458907",
-      "date_filed": "11/19/2014",
-      "docket_no": 4,
-      "docket_seq": "4.00000",
-      "docket_text": "Amended Order To Pay Filing Fees in Installments 1st Installment Payment due by 12/19/2014. FINAL Installment Payment due by 1/20/2015. (jrp) (Entered: 11/19/2014)",
-      "docket_uri": null,
-      "links": {
-        "documents": {
-          "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/4.00000/documents"
-        },
-        "self": {
-          "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/4.00000"
+      "binder": {
+        "documents": [
+          {
+            "cost": "0.20",
+            "description_html": null,
+            "docket_no": 3,
+            "filename": null,
+            "free": null,
+            "friendly_name": null,
+            "links": {
+              "order_pdf": {
+                "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents/1"
+              }
+            },
+            "number": 1,
+            "pages": 2
+          }
+        ],
+        "links": {
+          "pacer-update": {
+            "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents",
+            "method": "POST"
+          }
         }
       },
-      "timestamp": 1533152408.37436
+      "case_docket_entry_id": 81274896,
+      "date_filed": "11/19/2014",
+      "docket_no": 3,
+      "docket_seq": "3.00000",
+      "docket_text": "Order Granting 2 Application to Pay Filing Fee in Installments filed by Debtor Somewhere Someone 1st Installment Payment due by 12/19/2014. 2nd Installment Payment due by 1/20/2015. FINAL Installment Payment due by 2/17/2015. (jrp) (Entered: 11/19/2014)",
+      "has_pdf_link_on_pacer": true,
+      "links": {
+        "documents": {
+          "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents"
+        },
+        "self": {
+          "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000"
+        }
+      },
+      "timestamp": "2018-09-25T17:13:46.039520Z"
     },
     "links": {
       "header": {
@@ -781,7 +969,7 @@ Example:
         "method": "POST"
       },
       "self": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/4.00000"
+        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000"
       }
     }
   }
@@ -811,19 +999,20 @@ Example: Document Parts Not Yet Imported from PACER:
 ```shell
   $ docket/list-documents.js orbtrain 6:14-bk-63619 2.00000
   {
+    "documents": [],
     "links": {
       "pacer-update": {
         "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/2.00000/documents",
         "method": "POST"
       }
-    },
-    "parts": []
+    }
   }
 ```
 
-If the `parts` list is empty, it means you need to update the document entry
-from PACER using `updateDocketDocuments()` from the `QueryApi` (see the
-next section).
+If the `documents` list is empty, it means you need to update the document
+entry from PACER using `updateDocketDocuments()` from the `QueryApi` (see the
+next section).  It may also mean that there is no PDF available for this entry
+on PACER.
 
 If the document information has *already* been imported, the response looks
 like this:
@@ -832,15 +1021,9 @@ Example: Document Parts in CourtAPI
 ```shell
   $ docket/list-documents.js orbtrain 6:14-bk-63619 3.00000
   {
-    "links": {
-      "pacer-update": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents",
-        "method": "POST"
-      }
-    },
-    "parts": [
+    "documents": [
       {
-        "cost": null,
+        "cost": "0.20",
         "description_html": null,
         "docket_no": 3,
         "filename": null,
@@ -854,7 +1037,13 @@ Example: Document Parts in CourtAPI
         "number": 1,
         "pages": 2
       }
-    ]
+    ],
+    "links": {
+      "pacer-update": {
+        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents",
+        "method": "POST"
+      }
+    }
   }
 ```
 
@@ -884,15 +1073,9 @@ Example Output - Document Updated:
 ```shell
   $ docket/update-documents.js orbtrain 6:14-bk-63619 3.00000
   {
-    "links": {
-      "pacer-update": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents",
-        "method": "POST"
-      }
-    },
-    "parts": [
+    "documents": [
       {
-        "cost": null,
+        "cost": "0.20",
         "description_html": null,
         "docket_no": 3,
         "filename": null,
@@ -906,12 +1089,18 @@ Example Output - Document Updated:
         "number": 1,
         "pages": 2
       }
-    ]
+    ],
+    "links": {
+      "pacer-update": {
+        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents",
+        "method": "POST"
+      }
+    }
   }
 ```
 
 We can see that a document with 1 part and 2 pages is available now.  The
-`parts.links.order_pdf.href` endpoint is the location where the PDF can be
+`documents.links.order_pdf.href` endpoint is the location where the PDF can be
 purchased or downloaded.
 
 However, not all docket entries have documents.  For example, consider the
@@ -951,58 +1140,56 @@ Sample Code:
   );
 ```
 
-Usage: `docket/show-document-part.js <court> <case number> <docket number> <document part number>`
+Usage: `docket/show-document.js <court> <case number> <docket number> <document number>`
 
 Example Output - Document Not Yet Purchased:
 ```shell
-  $ docket/show-document-part.js orbtrain 6:14-bk-63619 3.00000 1
+  $ docket/show-document.js orbtrain 6:14-bk-63619 3.00000 1
   {
+    "document": {},
     "links": {
       "pacer-update": {
         "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents/1",
         "method": "POST"
       }
     },
-    "origin": "cache",
-    "part": {},
-    "status": "success"
+    "origin": "cache"
   }
 ```
 
-The `part` section is empty, which indicates we need to purchase the document
+The `document` section is empty, which indicates we need to purchase the document
 from PACER, using the `update-pacer` link (see the next section).
 
 Example Output - Document Already Purchased:
 ```shell
-  $ docket/show-document-part.js orbtrain 6:14-bk-63619 3.00000 1
+  $ docket/show-document.js orbtrain 6:14-bk-63619 3.00000 1
   {
-    "links": {
-      "pacer-update": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents/1",
-        "method": "POST"
-      }
-    },
-    "origin": "cache",
-    "part": {
-      "cost": null,
+    "document": {
+      "cost": "0.20",
       "description_html": null,
-      "download_url": "http://aws-s3.inforuptcy.dev.azk.io:32827/inforuptcy-storage/pacer/orbtrain/458907/dockets/3.00000/1-4D274924-9599-11E8-A309-F390BED07E61?response-content-disposition=attachment%3B+filename%3DBankr.D.Or.TRAIN._6-14-bk-63619_3.00000.pdf&AWSAccessKeyId=courtapi_dummy_key&Expires=1848753989&Signature=8tzx2PUdfo%2BJqaTp%2BvkYdbBUgf4%3D",
+      "download_url": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/documents/docket/download/eyJ...",
       "filename": "Bankr.D.Or.TRAIN._6-14-bk-63619_3.00000.pdf",
       "friendly_name": "Bankr.D.Or.TRAIN._6-14-bk-63619_3.00000.pdf",
       "number": 1,
       "pages": 2
     },
-    "status": "success"
+    "links": {
+      "pacer-update": {
+        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents/1",
+        "method": "POST"
+      }
+    },
+    "origin": "cache"
   }
 ```
 
-At that point, the PDF can be downloaded at the `part.download_url` and saved
-wherever you want.  Suggested filenames are available in the `part.filename`
-and `part.friendly_name` fields.
+At that point, the PDF can be downloaded at the `document.download_url` and saved
+wherever you want.  Suggested filenames are available in the `document.filename`
+and `document.friendly_name` fields.
 
 Example Output - No Document Available:
 ```
-  $ docket/show-document-part.js orbtrain 6:14-bk-63619 4.00000 1
+  $ docket/show-document.js orbtrain 6:14-bk-63619 4.00000 1
   ERROR: 400
   {
     "errorMessage": "No PDF Document available for Case orbtrain_458907, Docket entry: #4.00000",
@@ -1038,6 +1225,20 @@ Example Output:
 ```shell
   $ docket/buy-document-part.js orbtrain 6:14-bk-63619 3.00000 1
   {
+    "document": {
+      "action": "https://ecf-train.orb.uscourts.gov/doc3/150114375608?caseid=458907",
+      "cost": "0.20",
+      "description_html": null,
+      "docket_no": "3.00000",
+      "download_url": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/documents/docket/download/eyJ...",
+      "filename": "Bankr.D.Or.TRAIN._6-14-bk-63619_3.00000.pdf",
+      "free": null,
+      "friendly_name": "Bankr.D.Or.TRAIN._6-14-bk-63619_3.00000.pdf",
+      "number": 1,
+      "ocr_link": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/documents/docket/download/eyJ...",
+      "pages": 2,
+      "sequence_number": "3.00000"
+    },
     "links": {
       "pacer-update": {
         "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/dockets/3.00000/documents/1",
@@ -1045,46 +1246,28 @@ Example Output:
       }
     },
     "origin": "PACER",
-    "part": {
-      "action": "https://ecf-train.orb.uscourts.gov/doc3/150114375608?caseid=458907",
-      "case_uuid": "orbtrain_458907",
-      "cost": null,
-      "description_html": null,
-      "docket_no": "3.00000",
-      "download_url": "http://aws-s3.inforuptcy.dev.azk.io:32827/inforuptcy-storage/pacer/orbtrain/458907/dockets/3.00000/1-4D274924-9599-11E8-A309-F390BED07E61?response-content-disposition=attachment%3B+filename%3DBankr.D.Or.TRAIN._6-14-bk-63619_3.00000.pdf&AWSAccessKeyId=courtapi_dummy_key&Expires=1848753829&Signature=Xr4XTA7qys%2FyuqusjBBZ6fASmvc%3D",
-      "filename": "Bankr.D.Or.TRAIN._6-14-bk-63619_3.00000.pdf",
-      "free": null,
-      "friendly_name": "Bankr.D.Or.TRAIN._6-14-bk-63619_3.00000.pdf",
-      "number": 1,
-      "ocr_link": "http://aws-s3.inforuptcy.dev.azk.io:32827/inforuptcy-storage/pacer-ocr/pacer/orbtrain/458907/dockets/3.00000/1-4D274924-9599-11E8-A309-F390BED07E61.txt?response-content-disposition=attachment%3B+filename%3DBankr.D.Or.TRAIN._6-14-bk-63619_3.00000.pdf.txt&AWSAccessKeyId=courtapi_dummy_key&Expires=1848753829&Signature=wvPNCkgr9CUgzc10dZH7LNFiGa0%3D",
-      "pages": 2,
-      "raw_location": "s3://inforuptcy-storage/pacer/orbtrain/458907/dockets/3.00000/1-4D274924-9599-11E8-A309-F390BED07E61",
-      "sequence_number": "3.00000"
-    },
     "receipt": {
       "meta": {
         "case_uuid": null,
-        "filename": "4c3fdf12-9599-11e8-a309-f390bed07e61",
         "timestamp": null
       },
       "text": {
         "client_code": "",
         "cost": "0.20",
         "criteria": "14-63619-7",
-        "datetime": "Wed Aug 1 07:43:47 2018",
+        "datetime": "Tue Sep 25 10:54:43 2018",
         "description": "Image:3-0",
         "pages": "2",
-        "user_id": "irtraining"
+        "user_id": "[your pacer username]"
       }
-    },
-    "status": "success"
+    }
   }
 ```
 
 At this point, we have everything we need to save the PDF.  The document can be
-downloaded at the `part.download_url` location, and either saved locally using
-whatever filename you want, or, using the `part.filename` or
-`part.friendly_name` suggestions.
+downloaded at the `document.download_url` location, and either saved locally using
+whatever filename you want, or, using the `document.filename` or
+`document.friendly_name` suggestions.
 
 Note also that the response includes a receipt for the PACER charges that were
 incurred.
