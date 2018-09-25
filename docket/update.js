@@ -29,6 +29,10 @@ const options = {
   // minimizeHeader: true          // Do not buy the docket header
 };
 
+// if we have an extra arg, its the includeDocuments flag
+if (process.argv.length >= 5)
+  options.includeDocuments = process.argv[4];
+
 const queryApi = new CourtApi.QueryApi();
 
 queryApi.updateDockets(court, caseNumber, options,
