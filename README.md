@@ -232,7 +232,7 @@ Usage `court/search.js`
 
 Example Output:
 ```shell
-  $ ./court/search.js
+  $ court/search.js
   {
     "code": "akbtest",
     "links": {
@@ -1323,7 +1323,7 @@ Usage: `court/search-cases.js <court> <case number>`
             "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012"
           }
         },
-        "timestamp": 1533153623.89584,
+        "timestamp": "2018-09-25T18:07:51.576700Z",
         "title": "Joseph Wayne Sample and Sarah Lynn Sample"
       }
     ],
@@ -1363,45 +1363,8 @@ Usage: `claim/list.js <court> <case number>`
 Example - No Matches, or, PACER update needed:
 ```shell
   $ claim/list.js orbtrain 6:14-bk-63619
-  {
-    "claimed_amounts": {
-      "admin_claimed": "0.00",
-      "amount_claimed": "0.00",
-      "priority_claimed": "0.00",
-      "secured_claimed": "0.00",
-      "unknown_claimed": "0.00",
-      "unsecured_claimed": "0.00"
-    },
-    "entries": {
-      "content": [],
-      "links": {
-        "self": {
-          "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/claims?search_keyword=Order&sort_order=desc&page_size=10&page_number=1"
-        }
-      },
-      "page_size": "10",
-      "total_items": 0,
-      "total_pages": 1
-    },
-    "links": {
-      "header": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/claims/header"
-      },
-      "pacer-update": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/claims/update",
-        "method": "POST"
-      },
-      "self": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/orbtrain/6:14-bk-63619/claims?search_keyword=Order&sort_order=desc&page_size=10"
-      }
-    }
-  }
+  No docket entries - No matches, or PACER update needed
 ```
-
-In this example, the `entries.content` list is empty, and the `total_items` is
-`0`.  Either nothing matched the search keyword, or, this claims register has not
-yet been purchased from PACER.  The `links.pacer-update` endpoint is used to
-buy the updated claims register from PACER.
 
 Note that just like the dockets list, the claims register is paginated.  The
 response may contain multiple pages and you need to fetch all of the pages in
@@ -1423,80 +1386,68 @@ Example: Claims Register already in CourtAPI
 ```
   $ claim/list.js azbtest 2:07-bk-00012
   {
-    "claimed_amounts": {
-      "admin_claimed": "0.00",
-      "amount_claimed": "160.00",
-      "priority_claimed": "0.00",
-      "secured_claimed": "0.00",
-      "unknown_claimed": "0.00",
-      "unsecured_claimed": "160.00"
+    "amounts": {
+      "amount": {
+        "claimed": "160.00"
+      },
+      "unsecured": {
+        "claimed": "160.00"
+      }
     },
-    "entries": {
-      "content": [
-        {
-          "amounts": {
-            "amount": {
-              "claimed": "160.00"
-            },
-            "unsecured": {
-              "claimed": "160.00"
-            }
-          },
-          "creditor": "Bloomingdales\nPO Box 8745\nNew York NY 10012-8745",
-          "description": "(1-1) test<BR>",
-          "history": [
+    "creditor": "Bloomingdales\nPO Box 8745\nNew York NY 10012-8745",
+    "description": "(1-1) test<BR>",
+    "history": [
+      {
+        "action": "https://ecf-test.azb.uscourts.gov/cgi-bin/show_doc.pl?caseid=2644&claim_id=51742&claim_num=1-1&magic_num=MAGIC",
+        "binder": {
+          "documents": [
             {
-              "action": "https://ecf-test.azb.uscourts.gov/cgi-bin/show_doc.pl?caseid=2644&claim_id=51742&claim_num=1-1&magic_num=MAGIC",
-              "case_uuid": "azbtest_2644",
-              "claim_date": "06/11/2007",
-              "claim_no": "1-1",
-              "claim_seq": "1-1.00000",
-              "claim_text": "06/11/2007 Claim #1 filed by Bloomingdales, Amount claimed: $160.00 (Fouche, Cindy)",
-              "claim_uri": null,
-              "detail_uri": null,
+              "cost": "0.30",
+              "description_html": "Claim 51742-0",
+              "docket_no": null,
+              "filename": null,
+              "free": null,
+              "friendly_name": null,
               "links": {
-                "documents": {
-                  "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000"
+                "order_pdf": {
+                  "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000/1"
                 }
-              }
+              },
+              "number": 1,
+              "pages": 3
             }
           ],
-          "info": {
-            "claim_no": 1,
-            "original_entered_date": "06/11/2007",
-            "original_filed_date": "06/11/2007",
-            "timestamp": 1533138731.91653
-          },
           "links": {
-            "self": {
-              "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1"
+            "pacer-update": {
+              "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000",
+              "method": "POST"
             }
-          },
-          "remarks": null,
-          "status": null
+          }
+        },
+        "claim_date": "06/11/2007",
+        "claim_no": "1-1",
+        "claim_seq": "1-1.00000",
+        "claim_text": "06/11/2007 Claim #1 filed by Bloomingdales, Amount claimed: $160.00 (Fouche, Cindy)",
+        "links": {
+          "documents": {
+            "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000"
+          }
         }
-      ],
-      "links": {
-        "self": {
-          "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims?sort_order=desc&page_size=10&page_number=1"
-        }
-      },
-      "page_size": "10",
-      "total_items": 1,
-      "total_pages": 1
+      }
+    ],
+    "info": {
+      "claim_no": 1,
+      "modified": "2018-09-25T18:21:54.195020Z",
+      "original_entered_date": "06/11/2007",
+      "original_filed_date": "06/11/2007"
     },
     "links": {
-      "header": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/header"
-      },
-      "pacer-update": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/update",
-        "method": "POST"
-      },
       "self": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims?sort_order=desc&page_size=10"
+        "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1"
       }
-    }
+    },
+    "remarks": null,
+    "status": null
   }
 ```
 
@@ -1534,146 +1485,268 @@ Example:
       "assigned_to": null,
       "case_chapter_id": 3,
       "case_court_id": 107,
-      "case_id": 5083528,
       "case_id_external": 2644,
       "case_no": "2:07-bk-00012",
       "case_petition_id": 1,
       "case_title": "Joseph Wayne Sample and Sarah Lynn Sample",
       "case_type_id": 1,
-      "case_uuid": "azbtest_2644",
       "cause": null,
       "ch11_type": null,
       "ch11_type_code": null,
       "chapter": 11,
       "court": "azbtest",
       "court_name": "azbtest",
-      "created": "2018-08-01 15:51:57.004902+00",
+      "created": "2018-09-25T18:07:51.576699Z",
       "date_closed": null,
       "date_discharged": null,
       "date_filed": "02/19/2007",
-      "date_of_last_filing": "10/08/2013",
+      "date_of_last_filing": "09/25/2018",
       "date_plan_confirmed": "07/30/2007",
       "date_terminated": null,
       "disabled": 0,
       "disposition": null,
       "has_asset": 1,
-      "industry": null,
       "is_business_bankruptcy": null,
       "judge_name": "Brenda Moody Whinery",
       "jurisdiction": null,
       "jury_demand": null,
       "lead_case_uuid": null,
-      "liabilities": "Unknown",
-      "modified": "2018-08-01 15:52:11.894276+00",
-      "naics_code": null,
+      "links": {
+        "self": {
+          "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012"
+        }
+      },
+      "modified": "2018-09-25T18:09:51.887193Z",
       "nature_of_debt": null,
       "nature_of_suit_code": null,
       "ncl_parties": [],
       "referred_to": null,
       "schedule_ab": null,
-      "timestamp": 1533138731.89428,
+      "timestamp": "2018-09-25T18:09:51.887190Z",
       "title": "Joseph Wayne Sample and Sarah Lynn Sample",
-      "uri_id": 85055161,
-      "website": null
+      "uri_id": 85055162
     },
-    "forms": {
-      "case_code": "2-07-bk-12",
-      "creditor_name": null,
-      "creditor_no": null,
-      "creditor_type": null,
-      "date_from": null,
-      "date_to": null,
-      "date_type": null,
-      "doc_from": null,
-      "doc_to": null
-    },
-    "items": {
-      "claim_headers": [
-        {
-          "meta": {
-            "case_uuid": "azbtest_2644",
-            "filename": "azbtest_2644",
-            "timestamp": 1533138731.05036
+    "claims": [
+      {
+        "amounts": {
+          "admin": {},
+          "amount": {
+            "claimed": "$160.00"
           },
-          "text": {
-            "header": "... [ header HTML ] ...",
-            "summary": "... [ summary HTML ] ..."
+          "priority": {},
+          "secured": {},
+          "unknown": {},
+          "unsecured": {
+            "claimed": "$160.00"
           }
-        }
-      ],
-      "claims": [
-        {
-          "meta": {
-            "case_uuid": "azbtest_2644",
-            "claim_no": "1",
-            "filename": "azbtest_2644_1",
-            "timestamp": 1533138731.05036
-          },
-          "text": {
-            "amounts": {
-              "admin": {},
-              "amount": {
-                "claimed": "$160.00"
-              },
-              "priority": {},
-              "secured": {},
-              "unknown": {},
-              "unsecured": {
-                "claimed": "$160.00"
-              }
-            },
-            "creditor": "Bloomingdales\nPO Box 8745\nNew York NY 10012-8745",
-            "description": "(1-1) test<BR>",
-            "history": [
-              {
-                "case_uuid": "azbtest_2644",
-                "claim_date": "06/11/2007",
-                "claim_history_no": 1,
-                "claim_no": "1-1",
-                "claim_seq": 0,
-                "claim_text": "Claim #1 filed by Bloomingdales, Amount claimed: $160.00 (Fouche, Cindy)",
-                "claim_uri": "https://ecf-test.azb.uscourts.gov/cgi-bin/show_doc.pl?caseid=2644&claim_id=51742&claim_num=1-1&magic_num=MAGIC",
-                "detail_uri": "https://ecf-test.azb.uscourts.gov/cgi-bin/ClaimHistory.pl?2644,1-1,1064,2:07-bk-00012-BMW"
-              }
-            ],
-            "info": {
-              "claim_no": "1",
-              "original_entered_date": "06/11/2007",
-              "original_filed_date": "06/11/2007"
-            },
-            "remarks": null,
-            "status": {
-              "entered_by": "Cindy Fouche",
-              "filed_by": "CR",
-              "modified": "11/15/2007"
-            }
+        },
+        "claim_no": "1",
+        "creditor": "Bloomingdales\nPO Box 8745\nNew York NY 10012-8745",
+        "description": "(1-1) test<BR>",
+        "history": [
+          {
+            "claim_date": "06/11/2007",
+            "claim_history_no": "1",
+            "claim_no": "1-1",
+            "claim_seq": 0,
+            "claim_text": "Claim #1 filed by Bloomingdales, Amount claimed: $160.00 (Fouche, Cindy)",
+            "history_no": 1,
+            "sequence_number": "1.00000"
           }
-        }
-      ],
-      "receipts": [
-        {
-          "meta": {
-            "case_uuid": "azbtest_2644",
-            "filename": "azbtest_2644",
-            "timestamp": 1533138731.05036
-          },
-          "text": {
-            "client_code": "",
-            "cost": "0.10",
-            "criteria": "2:07-bk-00012-BMW",
-            "datetime": "08/01/2018 08:52:11",
-            "description": "Claims Register",
-            "pages": "1",
-            "user_id": "test:3611309:0"
-          }
-        }
-      ]
-    },
-    "queries": {}
+        ],
+        "info": {
+          "claim_no": "1",
+          "original_entered_date": "06/11/2007",
+          "original_filed_date": "06/11/2007"
+        },
+        "remarks": null,
+        "status": {
+          "entered_by": "Cindy Fouche",
+          "filed_by": "CR",
+          "modified": "11/15/2007"
+        },
+        "timestamp": "2018-09-25T18:21:52.944572Z"
+      }
+    ],
+    "receipts": {
+      "client_code": "",
+      "cost": "0.10",
+      "criteria": "2:07-bk-00012-BMW",
+      "datetime": "09/25/2018 11:21:54",
+      "description": "Claims Register",
+      "filename": "azbtest_2644",
+      "pages": "1",
+      "timestamp": "2018-09-25T18:21:52.944572Z",
+      "user_id": "[ pacer user ]"
+    }
   }
 ```
 
 Note that we have a receipt for the PACER charges in the response.
+
+#### Update Claims Entries, including Docments
+
+Just like the `dockets` update endpoint, the claims update endpoint has an
+option to fetch the PDF information and return it in the claim history entry
+`binder` attributes.
+
+Sample Code:
+```javascript
+  const queryApi = new CourtApi.QueryApi();
+
+  const options = {
+    includeDocuments: true
+  };
+
+  // you can restrict what claims are fetched with an options argument,
+  // or just use "null" to get the entire claims register
+  queryApi.updateClaims(court, caseNumber, options,
+    function (error, data, response) {
+      console.log(JSON.stringify(response.body, null, 2));
+    }
+  );
+```
+
+Example:
+```shell
+  $ claim/update.js azbtest 2:07-bk-00012 1
+```
+
+Response:
+```javascript
+  {
+    "case": {
+      "appeal_case_uuid": null,
+      "assets": "Unknown",
+      "assigned_to": null,
+      "case_chapter_id": 3,
+      "case_court_id": 107,
+      "case_id_external": 2644,
+      "case_no": "2:07-bk-00012",
+      "case_petition_id": 1,
+      "case_title": "Joseph Wayne Sample and Sarah Lynn Sample",
+      "case_type_id": 1,
+      "cause": null,
+      "ch11_type": null,
+      "ch11_type_code": null,
+      "chapter": 11,
+      "court": "azbtest",
+      "court_name": "azbtest",
+      "created": "2018-09-25T18:07:51.576699Z",
+      "date_closed": null,
+      "date_discharged": null,
+      "date_filed": "02/19/2007",
+      "date_of_last_filing": "09/25/2018",
+      "date_plan_confirmed": "07/30/2007",
+      "date_terminated": null,
+      "disabled": 0,
+      "disposition": null,
+      "has_asset": 1,
+      "is_business_bankruptcy": null,
+      "judge_name": "Brenda Moody Whinery",
+      "jurisdiction": null,
+      "jury_demand": null,
+      "lead_case_uuid": null,
+      "links": {
+        "self": {
+          "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012"
+        }
+      },
+      "modified": "2018-09-25T18:09:51.887193Z",
+      "nature_of_debt": null,
+      "nature_of_suit_code": null,
+      "ncl_parties": [],
+      "referred_to": null,
+      "schedule_ab": null,
+      "timestamp": "2018-09-25T18:09:51.887190Z",
+      "title": "Joseph Wayne Sample and Sarah Lynn Sample",
+      "uri_id": 85055162
+    },
+    "claims": [
+      {
+        "amounts": {
+          "admin": {},
+          "amount": {
+            "claimed": "$160.00"
+          },
+          "priority": {},
+          "secured": {},
+          "unknown": {},
+          "unsecured": {
+            "claimed": "$160.00"
+          }
+        },
+        "claim_no": "1",
+        "creditor": "Bloomingdales\nPO Box 8745\nNew York NY 10012-8745",
+        "description": "(1-1) test<BR>",
+        "history": [
+          {
+            "binder": {
+              "documents": [
+                {
+                  "cost": "0.30",
+                  "description_html": "Claim 51742-0",
+                  "docket_no": null,
+                  "filename": null,
+                  "free": null,
+                  "friendly_name": null,
+                  "links": {
+                    "order_pdf": {
+                      "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000/1"
+                    }
+                  },
+                  "number": 1,
+                  "pages": 3
+                }
+              ],
+              "links": {
+                "pacer-update": {
+                  "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000",
+                  "method": "POST"
+                }
+              }
+            },
+            "claim_date": "06/11/2007",
+            "claim_history_no": "1",
+            "claim_no": "1-1",
+            "claim_seq": 0,
+            "claim_text": "Claim #1 filed by Bloomingdales, Amount claimed: $160.00 (Fouche, Cindy)",
+            "history_no": 1,
+            "sequence_number": "1.00000"
+          }
+        ],
+        "info": {
+          "claim_no": "1",
+          "original_entered_date": "06/11/2007",
+          "original_filed_date": "06/11/2007"
+        },
+        "remarks": null,
+        "status": {
+          "entered_by": "Cindy Fouche",
+          "filed_by": "CR",
+          "modified": "11/15/2007"
+        },
+        "timestamp": "2018-09-25T18:28:29.404530Z"
+      }
+    ],
+    "receipts": {
+      "client_code": "",
+      "cost": "0.10",
+      "criteria": "2:07-bk-00012-BMW",
+      "datetime": "09/25/2018 11:28:30",
+      "description": "Claims Register",
+      "filename": "azbtest_2644",
+      "pages": "1",
+      "timestamp": "2018-09-25T18:28:29.404530Z",
+      "user_id": "[ pacer user ]"
+    }
+  }
+```
+
+Note that this response is identical to the previous update, except the claim
+history entries include the `binder` attribute which contains everything needed
+to go straight to the `order_pdf` step.  If your final intent is to download or
+purchase a PDF, this is the quickest way to get there.
 
 ### Display a Specific Claim Entry
 
@@ -1713,13 +1786,35 @@ Example:
       "history": [
         {
           "action": "https://ecf-test.azb.uscourts.gov/cgi-bin/show_doc.pl?caseid=2644&claim_id=51742&claim_num=1-1&magic_num=MAGIC",
-          "case_uuid": "azbtest_2644",
+          "binder": {
+            "documents": [
+              {
+                "cost": "0.30",
+                "description_html": "Claim 51742-0",
+                "docket_no": null,
+                "filename": null,
+                "free": null,
+                "friendly_name": null,
+                "links": {
+                  "order_pdf": {
+                    "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000/1"
+                  }
+                },
+                "number": 1,
+                "pages": 3
+              }
+            ],
+            "links": {
+              "pacer-update": {
+                "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000",
+                "method": "POST"
+              }
+            }
+          },
           "claim_date": "06/11/2007",
           "claim_no": "1-1",
           "claim_seq": "1-1.00000",
           "claim_text": "06/11/2007 Claim #1 filed by Bloomingdales, Amount claimed: $160.00 (Fouche, Cindy)",
-          "claim_uri": null,
-          "detail_uri": null,
           "links": {
             "documents": {
               "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000"
@@ -1729,9 +1824,9 @@ Example:
       ],
       "info": {
         "claim_no": 1,
+        "modified": "2018-09-25T18:28:30.704570Z",
         "original_entered_date": "06/11/2007",
-        "original_filed_date": "06/11/2007",
-        "timestamp": 1533138731.91653
+        "original_filed_date": "06/11/2007"
       },
       "links": {
         "self": {
@@ -1746,7 +1841,7 @@ Example:
         "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/header"
       },
       "self": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1.00000"
+        "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1"
       }
     }
   }
@@ -1792,32 +1887,26 @@ Example: PACER Update needed
 ```shell
   $ claim/list-parts.js azbtest 2:07-bk-00012 1 1.00000
   {
+    "documents": [],
     "links": {
       "pacer-update": {
         "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000",
         "method": "POST"
       }
-    },
-    "parts": []
+    }
   }
 ```
 
-Note that the `parts` array is empty, indicating that a PACER update is needed,
-or, that there are no parts available for this entry.
+Note that the `documents` array is empty, indicating that a PACER update is needed,
+or, that there are no documents available for this entry.
 
 Example: Document Already Imported
 ```shell
   $ claim/list-parts.js azbtest 2:07-bk-00012 1 1.00000
   {
-    "links": {
-      "pacer-update": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000",
-        "method": "POST"
-      }
-    },
-    "parts": [
+    "documents": [
       {
-        "cost": null,
+        "cost": "0.30",
         "description_html": "Claim 51742-0",
         "docket_no": null,
         "filename": null,
@@ -1831,7 +1920,13 @@ Example: Document Already Imported
         "number": 1,
         "pages": 3
       }
-    ]
+    ],
+    "links": {
+      "pacer-update": {
+        "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000",
+        "method": "POST"
+      }
+    }
   }
 ```
 
@@ -1856,21 +1951,15 @@ Sample Code:
   );
 ```
 
-Usage: `claim/update-parts.js <court> <case number> <claim number> <claim sequence>`
+Usage: `claim/update-documents.js <court> <case number> <claim number> <claim sequence>`
 
 Example:
 ```shell
-  $ claim/update-parts.js azbtest 2:07-bk-00012 1 1.00000
+  $ claim/update-documents.js azbtest 2:07-bk-00012 1 1.00000
   {
-    "links": {
-      "pacer-update": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000",
-        "method": "POST"
-      }
-    },
-    "parts": [
+    "documents": [
       {
-        "cost": null,
+        "cost": "0.30",
         "description_html": "Claim 51742-0",
         "docket_no": null,
         "filename": null,
@@ -1884,7 +1973,13 @@ Example:
         "number": 1,
         "pages": 3
       }
-    ]
+    ],
+    "links": {
+      "pacer-update": {
+        "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000",
+        "method": "POST"
+      }
+    }
   }
 ```
 
@@ -1910,55 +2005,53 @@ Sample Code:
   );
 ```
 
-Usage: `claim/show-part.js <court> <case> <claim> <claim sequence> <part>`
+Usage: `claim/show-document.js <court> <case> <claim> <claim sequence> <part>`
 
 Example: Document not yet purchased from PACER
 ```shell
-  $ claim/show-part.js azbtest 2:07-bk-00012 1 1.00000 1
+  $ claim/show-document.js azbtest 2:07-bk-00012 1 1.00000 1
   {
+    "document": {},
     "links": {
       "pacer-update": {
         "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000/1",
         "method": "POST"
       }
     },
-    "origin": "cache",
-    "part": {},
-    "status": "success"
+    "origin": "cache"
   }
 ```
 
-The origin here was `cache` (meaning the local database), and the `part`
+The origin here was `cache` (meaning the local database), and the `document`
 section is empty, so we know that we need to purchase the PDF from PACER.
 
 Example: Document Already Purchased from PACER
 ```shell
-  $ claim/show-part.js azbtest 2:07-bk-00012 1 1.00000 1
+  $ claim/show-document.js azbtest 2:07-bk-00012 1 1.00000 1
   {
-    "links": {
-      "pacer-update": {
-        "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000/1",
-        "method": "POST"
-      }
-    },
-    "origin": "cache",
-    "part": {
-      "cost": null,
+    "document": {
+      "cost": "0.30000",
       "description_html": "Claim 51742-0",
-      "download_url": "http://aws-s3.inforuptcy.dev.azk.io:32827/inforuptcy-storage/pacer/azbtest/2644/claims/1/1.00000/1-DAC97B08-95A8-11E8-A309-F390BED07E61?response-content-disposition=attachment%3B+filename%3DBankr.D.Ariz.TEST_2-07-bk-00012_Claim_1-1.pdf&AWSAccessKeyId=courtapi_dummy_key&Expires=1848760740&Signature=1wmUxJhIvv1XuPE0H7Pijx0SJZ4%3D",
+      "download_url": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/documents/claims/download/eyJ...",
       "filename": "Bankr.D.Ariz.TEST_2-07-bk-00012_Claim_1-1.pdf",
       "friendly_name": "Bankr.D.Ariz.TEST_2-07-bk-00012_Claim_1-1.pdf",
       "number": 1,
       "pages": 3
     },
-    "status": "success"
+    "links": {
+      "pacer-update": {
+        "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000/1",
+        "method": "POST"
+      }
+    },
+    "origin": "cache"
   }
 ```
 
 In this example the document was already present on CourtAPI, and can be
-downloaded at the location in `part.download_url` and saved in a filename of
-your choice, or, using the suggested filename of either `part.filename` or
-`part.friendly_name`.
+downloaded at the location in `document.download_url` and saved in a filename of
+your choice, or, using the suggested filename of either `document.filename` or
+`document.friendly_name`.
 
 ### Buy Claim Entry PDF
 
@@ -1979,8 +2072,21 @@ Sample Code:
 
 Example:
 ```shell
-  $ claim/buy-part.js azbtest 2:07-bk-00012 1 1.00000 1
+  $ claim/buy-document.js azbtest 2:07-bk-00012 1 1.00000 1
   {
+    "document": {
+      "action": "https://ecf-test.azb.uscourts.gov/doc2/02418759",
+      "cost": "0.30",
+      "description_html": "Claim 51742-0",
+      "docket_no": "1-1.00000",
+      "download_url": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/documents/claims/download/eyJjYXNlX3V1aWQiOiJhemJ0ZXN0XzI2NDQiLCJlcG9jaCI6MTUzNzkwMDkzNSwiaWQiOiI2MmJjOWQyMS04MjhjLTQxZjctOTllMy1hNWNmMDkyMTVhMzEiLCJwYXJ0X25vIjoiMSIsInNlcXVlbmNlIjoiMS0xLjAwMDAwIiwidHlwZSI6ImNsYWltIn0/dede91f52934c4ca2974a9b2499b96c1cad42ad660955f53114990f70134c105",
+      "filename": "Bankr.D.Ariz.TEST_2-07-bk-00012_Claim_1-1.pdf",
+      "friendly_name": "Bankr.D.Ariz.TEST_2-07-bk-00012_Claim_1-1.pdf",
+      "history_number": "1",
+      "number": 1,
+      "ocr_link": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/documents/claims/download/eyJjYXNlX3V1aWQiOiJhemJ0ZXN0XzI2NDQiLCJlcG9jaCI6MTUzNzkwMDkzNSwiaWQiOiJkMmQwMDdkNy0wMTg3LTRiZjgtYTRiOS0wMjNiM2RkMmIyNjYiLCJwYXJ0X25vIjoiMSIsInNlcXVlbmNlIjoiMS0xLjAwMDAwIiwidHlwZSI6Im9jciJ9/30babc5bc16f3d73c4671f871392b3b34c10542233052a20a823318fa00023e0",
+      "pages": 3
+    },
     "links": {
       "pacer-update": {
         "href": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/claims/1/documents/1.00000/1",
@@ -1988,45 +2094,24 @@ Example:
       }
     },
     "origin": "PACER",
-    "part": {
-      "action": "https://ecf-test.azb.uscourts.gov/doc2/02418759",
-      "case_uuid": "azbtest_2644",
-      "description_html": "Claim 51742-0",
-      "docket_no": "1-1.00000",
-      "download_url": "http://aws-s3.inforuptcy.dev.azk.io:32827/inforuptcy-storage/pacer/azbtest/2644/claims/1/1.00000/1-DAC97B08-95A8-11E8-A309-F390BED07E61?response-content-disposition=attachment%3B+filename%3DBankr.D.Ariz.TEST_2-07-bk-00012_Claim_1-1.pdf&AWSAccessKeyId=courtapi_dummy_key&Expires=1848760509&Signature=Pjsr9jcnxquqlWzRpvnMPswEj2c%3D",
-      "filename": "Bankr.D.Ariz.TEST_2-07-bk-00012_Claim_1-1.pdf",
-      "friendly_name": "Bankr.D.Ariz.TEST_2-07-bk-00012_Claim_1-1.pdf",
-      "history_number": "1",
-      "number": 1,
-      "ocr_link": "http://aws-s3.inforuptcy.dev.azk.io:32827/inforuptcy-storage/pacer-ocr/pacer/azbtest/2644/claims/1/1.00000/1-DAC97B08-95A8-11E8-A309-F390BED07E61.txt?response-content-disposition=attachment%3B+filename%3DBankr.D.Ariz.TEST_2-07-bk-00012_Claim_1-1.pdf.txt&AWSAccessKeyId=courtapi_dummy_key&Expires=1848760509&Signature=tSmjboIo2LKGNb4YFcRJ7BG1h%2BA%3D",
-      "pages": 3,
-      "raw_location": "s3://inforuptcy-storage/pacer/azbtest/2644/claims/1/1.00000/1-DAC97B08-95A8-11E8-A309-F390BED07E61"
-    },
     "receipt": {
-      "meta": {
-        "case_uuid": null,
-        "filename": "d9fcee76-95a8-11e8-a309-f390bed07e61",
-        "timestamp": null
-      },
-      "text": {
-        "client_code": "",
-        "cost": "0.30",
-        "criteria": "2:07-bk-00012-BMW",
-        "datetime": "Wed Aug 1 09:35:07 2018",
-        "description": "Claim 51742-0",
-        "pages": "3",
-        "user_id": "test:3611309:0"
-      }
-    },
-    "status": "success"
+      "client_code": "",
+      "cost": "0.30",
+      "criteria": "2:07-bk-00012-BMW",
+      "datetime": "Tue Sep 25 11:42:14 2018",
+      "description": "Claim 51742-0",
+      "pages": "3",
+      "timestamp": null,
+      "user_id": "[ pacer user ]"
+    }
   }
 ```
 
 Notice here that we have a receipt for the PACER charges, as well as all of the
 information we need to download the PDF and save it locally.  The PDF can be
-downloaded from the `part.download_url` location in the response, and either
+downloaded from the `document.download_url` location in the response, and either
 saved in a filename of your own choice, or, using the suggested filenames in
-`part.filename` or `part.friendly_name`.
+`document.filename` or `document.friendly_name`.
 
 # Complete Example: Generate a Complete Docket Sheet for a Case
 
@@ -2041,7 +2126,7 @@ of the following things:
 Example Usage:
 
 ```javascript
-  $ ./make-docket-sheet.js orbtrain 6:14-bk-63619
+  $ make-docket-sheet.js orbtrain 6:14-bk-63619
   Saved docket sheet as docket-sheet.html
 ```
 This example builds on all of the above snippets to generate the docket sheet.
@@ -2064,7 +2149,7 @@ other programs to accomplish the task.
 Example Usage:
 
 ```shell
-  $ ./make-claims-register.js azbtest 2:07-bk-00012
+  $ make-claims-register.js azbtest 2:07-bk-00012
   Saved claims register as claims-register.html
 ```
 
@@ -2116,7 +2201,7 @@ This example will buy and download all PDFs for docket entries that match the
 keyword "jrp" in the case number 6:14-bk-63619 in the court "orbtrain":
 
 ```shell
-  $ ./purchase-and-download-docket-pdfs.js orbtrain 6:14-bk-63619 jrp
+  $ purchase-and-download-docket-pdfs.js orbtrain 6:14-bk-63619 jrp
 ```
 
 Output:
