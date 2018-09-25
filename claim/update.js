@@ -15,12 +15,17 @@ if (process.argv.length < 4) {
 const court      = process.argv[2];
 const caseNumber = process.argv[3];
 
+const options = {};
+
+if (process.argv.length >= 5)
+  options.includeDocuments = process.argv[4];
+
 // initialize auth headers
 auth.init();
 
 const queryApi = new CourtApi.QueryApi();
 
-queryApi.updateClaims(court, caseNumber, null,
+queryApi.updateClaims(court, caseNumber, options,
   (error, data, response) => {
     if (error) return handlers.errorHandler(error);
 
