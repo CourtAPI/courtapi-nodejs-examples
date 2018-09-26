@@ -181,9 +181,7 @@ async function writeClaimsEntries(stream, court, caseNumber) {
           dateFiled:   entry.info.original_filed_date,
           creditor:    entry.creditor,
           amount:      '$' + numberFormat(entry.amounts.amount.claimed),
-          // Javascript has no way to convert a date to America/New_York, so
-          // just use local time *sigh*
-          lastUpdated: dateFormat(new Date(entry.info.timestamp * 1000), 'mm/dd/yyyy'),
+          lastUpdated: dateFormat(new Date(entry.info.modified), 'mm/dd/yyyy'),
         })
       );
     });
