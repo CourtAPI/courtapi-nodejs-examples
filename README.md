@@ -202,6 +202,8 @@ Usage `pacer/delete-credentials.js'
 Example:
 ```shell
   $ pacer/delete-credentials.js
+```
+```javascript
   { app_id: '25ed3872', pacer_user: 'dummy', status: 'deleted' }
 ```
 
@@ -233,6 +235,8 @@ Usage `court/search.js`
 Example Output:
 ```shell
   $ court/search.js
+```
+```javascript
   {
     "code": "akbtest",
     "links": {
@@ -275,6 +279,8 @@ Usage: `court/show.js <court code>`
 Example Output:
 ```shell
   $ court/show.js orbtrain
+```
+```javascript
   {
     "abbr": "orbtrain",
     "citation": "Bankr.D.Or.TRAIN.",
@@ -331,6 +337,8 @@ And then re-run `court/show-case.js`
 
 ```shell
   $ court/show-case.js orbtrain 6:14-bk-63619
+```
+```javascript
   {
     "case": {
       "assets": "Unknown",
@@ -400,6 +408,8 @@ Usage: `court/search-cases.js <court code> <case number>
 Example:
 ```shell
   $ court/search-cases.js orbtrain 6:14-bk-63618
+```
+```javascript
   {
     "cases": [
       {
@@ -477,6 +487,8 @@ For case where the docket is already in CourtAPI, the output looks like this:
 
 ```shell
   $ docket/list.js orbtrain 6:14-bk-63619
+```
+```javascript
   // -- PAGE 1/1 --
   {
     "entries": {
@@ -648,6 +660,8 @@ Example:
 ```shell
   $ docket/update.js orbtrain 6:14-bk-63619
   Case docket updated.
+```
+```javascript
   {
     "case": {
       "appeal_case_uuid": null,
@@ -899,6 +913,8 @@ Usage: `docket/show-entry.js <court> <case number> <docket number>`
 Example:
 ```shell
   $ docket/show-entry.js orbtrain 6:14-bk-63619 3.00000
+```
+```javascript
   {
     "entry": {
       "action": "https://ecf-train.orb.uscourts.gov/doc3/150014375608",
@@ -998,6 +1014,8 @@ Usage: `docket/list-documents.js <court> <case number> <docket number>`
 Example: Document Parts Not Yet Imported from PACER:
 ```shell
   $ docket/list-documents.js orbtrain 6:14-bk-63619 2.00000
+```
+```javascript
   {
     "documents": [],
     "links": {
@@ -1020,6 +1038,8 @@ like this:
 Example: Document Parts in CourtAPI
 ```shell
   $ docket/list-documents.js orbtrain 6:14-bk-63619 3.00000
+```
+```javascript
   {
     "documents": [
       {
@@ -1072,6 +1092,8 @@ Example Output - Document Updated:
 
 ```shell
   $ docket/update-documents.js orbtrain 6:14-bk-63619 3.00000
+```
+```javascript
   {
     "documents": [
       {
@@ -1110,6 +1132,8 @@ Example Output: No Document Available
 ```shell
   $ docket/update-documents.js orbtrain 6:14-bk-63619 4.00000
   ERROR: 400
+```
+```javascript
   {
     "errorMessage": "No PDF Document available for Case orbtrain_458907, Docket entry: #4.00000",
     "status": "fail"
@@ -1145,6 +1169,8 @@ Usage: `docket/show-document.js <court> <case number> <docket number> <document 
 Example Output - Document Not Yet Purchased:
 ```shell
   $ docket/show-document.js orbtrain 6:14-bk-63619 3.00000 1
+```
+```javascript
   {
     "document": {},
     "links": {
@@ -1163,6 +1189,8 @@ from PACER, using the `update-pacer` link (see the next section).
 Example Output - Document Already Purchased:
 ```shell
   $ docket/show-document.js orbtrain 6:14-bk-63619 3.00000 1
+```
+```javascript
   {
     "document": {
       "cost": "0.20",
@@ -1224,6 +1252,8 @@ Usage: `docket/buy-document-part.js <court> <case number> <docket number> <docum
 Example Output:
 ```shell
   $ docket/buy-document-part.js orbtrain 6:14-bk-63619 3.00000 1
+```
+```javascript
   {
     "document": {
       "action": "https://ecf-train.orb.uscourts.gov/doc3/150114375608?caseid=458907",
@@ -1478,6 +1508,8 @@ Example:
 
 ```shell
   $ claim/update.js azbtest 2:07-bk-00012
+```
+```javascript
   {
     "case": {
       "appeal_case_uuid": null,
@@ -1771,6 +1803,8 @@ Usage: `claim/show.js <court> <case number> <claim number>`
 Example:
 ```shell
   $ claim/show.js azbtest 2:07-bk-00012 1
+```
+```javascript
   {
     "entry": {
       "amounts": {
@@ -1886,6 +1920,8 @@ Usage: `claim/list-parts.js <court> <case number> <claim number> <claim sequence
 Example: PACER Update needed
 ```shell
   $ claim/list-parts.js azbtest 2:07-bk-00012 1 1.00000
+```
+```javascript
   {
     "documents": [],
     "links": {
@@ -1903,6 +1939,8 @@ or, that there are no documents available for this entry.
 Example: Document Already Imported
 ```shell
   $ claim/list-parts.js azbtest 2:07-bk-00012 1 1.00000
+```
+```javascript
   {
     "documents": [
       {
@@ -1956,6 +1994,8 @@ Usage: `claim/update-documents.js <court> <case number> <claim number> <claim se
 Example:
 ```shell
   $ claim/update-documents.js azbtest 2:07-bk-00012 1 1.00000
+```
+```javascript
   {
     "documents": [
       {
@@ -2010,6 +2050,8 @@ Usage: `claim/show-document.js <court> <case> <claim> <claim sequence> <part>`
 Example: Document not yet purchased from PACER
 ```shell
   $ claim/show-document.js azbtest 2:07-bk-00012 1 1.00000 1
+```
+```javascript
   {
     "document": {},
     "links": {
@@ -2028,6 +2070,8 @@ section is empty, so we know that we need to purchase the PDF from PACER.
 Example: Document Already Purchased from PACER
 ```shell
   $ claim/show-document.js azbtest 2:07-bk-00012 1 1.00000 1
+```
+```javascript
   {
     "document": {
       "cost": "0.30000",
@@ -2073,18 +2117,20 @@ Sample Code:
 Example:
 ```shell
   $ claim/buy-document.js azbtest 2:07-bk-00012 1 1.00000 1
+```
+```javascript
   {
     "document": {
       "action": "https://ecf-test.azb.uscourts.gov/doc2/02418759",
       "cost": "0.30",
       "description_html": "Claim 51742-0",
       "docket_no": "1-1.00000",
-      "download_url": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/documents/claims/download/eyJjYXNlX3V1aWQiOiJhemJ0ZXN0XzI2NDQiLCJlcG9jaCI6MTUzNzkwMDkzNSwiaWQiOiI2MmJjOWQyMS04MjhjLTQxZjctOTllMy1hNWNmMDkyMTVhMzEiLCJwYXJ0X25vIjoiMSIsInNlcXVlbmNlIjoiMS0xLjAwMDAwIiwidHlwZSI6ImNsYWltIn0/dede91f52934c4ca2974a9b2499b96c1cad42ad660955f53114990f70134c105",
+      "download_url": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/documents/claims/download/eyJ...",
       "filename": "Bankr.D.Ariz.TEST_2-07-bk-00012_Claim_1-1.pdf",
       "friendly_name": "Bankr.D.Ariz.TEST_2-07-bk-00012_Claim_1-1.pdf",
       "history_number": "1",
       "number": 1,
-      "ocr_link": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/documents/claims/download/eyJjYXNlX3V1aWQiOiJhemJ0ZXN0XzI2NDQiLCJlcG9jaCI6MTUzNzkwMDkzNSwiaWQiOiJkMmQwMDdkNy0wMTg3LTRiZjgtYTRiOS0wMjNiM2RkMmIyNjYiLCJwYXJ0X25vIjoiMSIsInNlcXVlbmNlIjoiMS0xLjAwMDAwIiwidHlwZSI6Im9jciJ9/30babc5bc16f3d73c4671f871392b3b34c10542233052a20a823318fa00023e0",
+      "ocr_link": "https://train.v1.courtapi.com/cases/pacer/azbtest/2:07-bk-00012/documents/claims/download/eyJ...",
       "pages": 3
     },
     "links": {
