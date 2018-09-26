@@ -93,7 +93,7 @@ function getDocketEntriesPage(court, caseNumber, page) {
 
   let options = {
     pageNumber: page,
-    pageSize:  50,
+    pageSize:  500,
     sortOrder: 'desc',
     //searchKeyword: "Sprint Solutions"
   };

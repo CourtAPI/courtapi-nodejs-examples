@@ -131,7 +131,7 @@ async function getClaimsEntriesPage(court, caseNumber, page) {
 
   let options = {
     pageNumber: page,
-    pageSize:  50,
+    pageSize:  500,
     sortOrder: 'desc',
     // you can restrict by keyword with something like this:
     //searchKeyword: "Sprint Solutions"
