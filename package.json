@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "base-64": "^0.1.0",
     "dateformat": "^3.0.3",
     "format-number": "^3.0.0",
     "handlebars": "^4.0.11",
