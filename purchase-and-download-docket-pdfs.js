@@ -11,23 +11,15 @@
 
 'use strict';
 
-const fs       = require('fs');
-const CourtApi = require('court_api');
-const merge    = require('merge');
-const auth     = require('./inc/auth');
-const handlers = require('./inc/handlers');
+const CourtApi  = require('court_api');
+const fs        = require('fs');
+const merge     = require('merge');
+const base64    = require('base-64');
+const auth      = require('./inc/auth');
+const constants = require('./inc/constants');
+const handlers  = require('./inc/handlers');
 
 global.fetch = require('node-fetch');
-
-//
-// Helper function to determine if an object is empty
-//
-function isEmptyObject (obj) {
-  for (var item in obj)
-    return false;
-
-  return true;
-}
 
 //
 // Fetch case information from CourtAPI
@@ -48,7 +40,7 @@ function getDocketEntriesPage(court, caseNumber, search, page) {
 
   const options = merge(search, {
     pageNumber: page,
-    pageSize:  50,
+    pageSize:  500,
     sortOrder: "desc"
   });
 
@@ -108,87 +100,47 @@ function importCase(court, caseNumber) {
   });
 }
 
-function listDocketDocuments(court, caseNumber, docketNumber) {
-  const caseApi = new CourtApi.CaseApi();
-
-  return new Promise((resolve, reject) => {
-    caseApi.getDocketDocuments(court, caseNumber, docketNumber,
-      handlers.promiseCallback(resolve, reject)
-    );
-  });
-}
-
-function updateDocketDocuments(court, caseNumber, docketNumber) {
-  const queryApi = new CourtApi.QueryApi();
-
-  return new Promise((resolve, reject) => {
-    queryApi.updateDocketDocuments(court, caseNumber, docketNumber,
-      handlers.promiseCallback(resolve, reject)
-    );
-  });
-}
-
-async function getDocketDocuments(court, caseNumber, docketNumber) {
-  let response = await listDocketDocuments(court, caseNumber, docketNumber);
-
-  if (response.parts.length === 0)
-    response = await updateDocketDocuments(court, caseNumber, docketNumber);
-
-  return response;
-}
-
 //
-// Get a document part fro CourtAPI
+// purchases a docket document from PACER
 //
-function getDocumentPart(court, caseNumber, docketSeq, partNumber) {
-  const caseApi = new CourtApi.CaseApi();
-
-  return new Promise((resolve, reject) => {
-    caseApi.getDocketDocument(court, caseNumber, docketSeq, partNumber,
-      handlers.promiseCallback(resolve, reject)
-    );
-  });
-}
-
-//
-// purchases a docket document part from PACER
-//
-function importDocumentPart(court, caseNumber, docketSeq, partNumber) {
+function buyDocument(court, caseNumber, docketSeq, partNumber) {
   const queryApi = new CourtApi.QueryApi();
 
   return new Promise((resolve, reject) => {
     queryApi.buyDocketDocument(court, caseNumber, docketSeq, partNumber,
+
       handlers.promiseCallback(resolve, reject)
     );
   });
 }
 
 //
-// Process a docket document part, importing the part information from PACER if
-// required
+// Get a docket document from local cache
 //
-async function processDocumentPart(court, caseNumber, docketSeq, partNumber) {
-  const docPart = await getDocumentPart(court, caseNumber, docketSeq, partNumber);
+function getDocument(court, caseNumber, docketSeq, docNumber) {
+  const caseApi = new CourtApi.CaseApi();
 
-  if (isEmptyObject(docPart.part))
-    return importDocumentPart(court, caseNumber, docketSeq, partNumber);
-  else
-    return docPart;
+  return new Promise((resolve, reject) => {
+    caseApi.getDocketDocument(court, caseNumber, docketSeq, docNumber,
+      handlers.promiseCallback(resolve, reject)
+    );
+  });
 }
 
 async function processDocketEntry(court, caseNumber, docketEntry) {
   const docketSeq = docketEntry.docket_seq;
-  const documents = await getDocketDocuments(court, caseNumber, docketSeq);
+  const documents = docketEntry.binder.documents;
 
-  for (const item of documents.parts) {
+  for (var doc of documents) {
     // Buy the document part if necessary
-    const docPart  = await processDocumentPart(court, caseNumber, docketSeq, item.number);
+    if (doc.filename === null)
+      // Purchase the doucment from PACER
+      doc = await buyDocument(court, caseNumber, docketSeq, doc.number);
+    else
+      // Download the PDF from CourtAPI
+      doc = await getDocument(court, caseNumber, docketSeq, doc.number);
 
-    // download the document part
-    const filename = docPart.part.friendly_name;
-    const url      = docPart.part.download_url;
-
-    await downloadFile(url, filename);
+    await downloadFile(doc.document.download_url, doc.document.friendly_name);
   }
 }
 
@@ -196,9 +148,12 @@ async function processDocketEntry(court, caseNumber, docketEntry) {
 // Download a document and save it to a filename.
 //
 async function downloadFile(url, filename) {
-  console.log("Downloading file: " + filename);
-
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      "Authorization": 'Basic ' + base64.encode(constants.API_KEY + ':' + constants.API_SECRET)
+    }
+  });
 
   return new Promise((resolve, reject) => {
     const dest = fs.createWriteStream(filename);
@@ -220,7 +175,8 @@ async function processDocketEntries(court, caseNumber, keyword) {
   let totalPages = 0;
 
   const search = {
-    searchKeyword: keyword
+    searchKeyword: keyword,
+    includeDocuments: true
   };
 
   // fetch all matched docket entries

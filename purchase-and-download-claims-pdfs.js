@@ -11,23 +11,16 @@
 
 'use strict';
 
-const fs       = require('fs');
 const CourtApi = require('court_api');
+const base64   = require('base-64');
+const fs       = require('fs');
 const merge    = require('merge');
-const auth     = require('./inc/auth');
-const handlers = require('./inc/handlers');
+
+const auth      = require('./inc/auth');
+const constants = require('./inc/constants');
+const handlers  = require('./inc/handlers');
 
 global.fetch = require('node-fetch');
-
-//
-// Helper function to determine if an object is empty
-//
-function isEmptyObject (obj) {
-  for (var item in obj)
-    return false;
-
-  return true;
-}
 
 //
 // Get a case from CourtAPI, importing it from PACER if required
@@ -89,7 +82,7 @@ function getClaimsEntriesPage(court, caseNumber, search, page) {
 
   const options = merge(search, {
     pageNumber: page,
-    pageSize:  50,
+    pageSize:  500,
     sortOrder: "desc"
   });
 
@@ -118,7 +111,8 @@ async function findAndProcessClaims(court, caseNumber, keyword) {
   let totalPages = 0;
 
   const search = {
-    searchKeyword: keyword
+    searchKeyword: keyword,
+    includeDocuments: true
   };
 
   // fetch all matched claims entries
@@ -145,32 +139,11 @@ async function findAndProcessClaims(court, caseNumber, keyword) {
   } while (page < totalPages);
 }
 
-function updateClaimParts(court, caseNumber, claimNumber, claimSequence) {
-  const queryApi = new CourtApi.QueryApi();
-
-  return new Promise((resolve, reject) => {
-    queryApi.updateClaimParts(
-      court, caseNumber, claimNumber, claimSequence,
-      handlers.promiseCallback(resolve, reject)
-    );
-  });
-}
-
-function getClaimParts(court, caseNumber, claimNumber, claimSequence) {
-  const caseApi = new CourtApi.CaseApi();
-
-  return new Promise((resolve, reject) => {
-    caseApi.getClaimParts(court, caseNumber, claimNumber, claimSequence,
-      handlers.promiseCallback(resolve, reject)
-    );
-  });
-}
-
 //
 // Get claim document JSON.  If document is not in CourtAPI, several fields
 // (such as filename) will be null
 //
-function getClaimDocument(court, caseNumber, claimNumber, claimSequence, docNumber) {
+function getDocument(court, caseNumber, claimNumber, claimSequence, docNumber) {
   const caseApi = new CourtApi.CaseApi();
 
   return new Promise((resolve, reject) => {
@@ -184,7 +157,7 @@ function getClaimDocument(court, caseNumber, claimNumber, claimSequence, docNumb
 //
 // Purchase a Claim PDF from PACER, returns Claim document JSON
 //
-function buyClaimDocument(court, caseNumber, claimNumber, claimSequence, docNumber) {
+function buyDocument(court, caseNumber, claimNumber, claimSequence, docNumber) {
   const queryApi = new CourtApi.QueryApi();
 
   return new Promise((resolve, reject) => {
@@ -196,30 +169,17 @@ function buyClaimDocument(court, caseNumber, claimNumber, claimSequence, docNumb
 }
 
 //
-// Purchases a document part if necessary
-//
-function purchaseDocumentPart(court, caseNumber, claimNumber, claimSequence, docPart) {
-  const docNumber = docPart.number;
-
-  return new Promise(async (resolve, reject) => {
-    if (docPart.filename == null)
-      // Document not in CourtAPI, purchase from PACER
-      docPart = await buyClaimDocument(court, caseNumber, claimNumber, claimSequence, docNumber);
-    else
-      // Document is already in CourtAPI, just return it
-      docPart = await getClaimDocument(court, caseNumber, claimNumber, claimSequence, docNumber);
-
-    resolve(docPart);
-  });
-}
-
-//
 // Download a document and save it to a filename.
 //
 async function downloadFile(url, filename) {
   console.log("Downloading file: " + filename);
 
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      "Authorization": 'Basic ' + base64.encode(constants.API_KEY + ':' + constants.API_SECRET)
+    }
+  });
 
   return new Promise((resolve, reject) => {
     const dest = fs.createWriteStream(filename);
@@ -233,28 +193,22 @@ async function downloadFile(url, filename) {
 }
 
 async function processClaimsEntry(court, caseNumber, claimsEntry) {
-  const claimNumber = claimsEntry.info.claim_no;
+  const claimNo = claimsEntry.info.claim_no;
 
-  for (const claimPart of claimsEntry.history) {
-    // CourtAPI gives the sequence as claimNumber-claimSeq
-    // Strip off claimNumber
-    const claimSequence = claimPart.claim_seq.replace(/^[0-9]+-/, '');
+  for (const histItem of claimsEntry.history) {
+    // skip if this entry does not have a binder
+    if (typeof histItem.binder === 'undefined')
+      return;
 
-    let docs = await getClaimParts(court, caseNumber, claimNumber, claimSequence);
+    const claimSeq  = histItem.claim_seq.replace(/^[0-9]+-/, '');
 
-    // if parts is emtpy, update from PACER
-    if (docs.parts.length == 0)
-      docs = await updateClaimParts(court, caseNumber, claimNumber, claimSequence);
+    for (var doc of histItem.binder.documents) {
+      if (doc.filename === null)
+        doc = await buyDocument(court, caseNumber, claimNo, claimSeq, doc.number);
+      else
+        doc = await getDocument(court, caseNumber, claimNo, claimSeq, doc.number);
 
-    // For each document part, buy the PDF if necessary, and download it
-    for (var docPart of docs.parts) {
-      docPart = await purchaseDocumentPart(court, caseNumber, claimNumber, claimSequence, docPart);
-
-      const url      = docPart.part.download_url;
-      const fileName = docPart.part.filename;
-
-      if (url !== null && fileName !== null)
-        await downloadFile(url, fileName);
+      await downloadFile(doc.document.download_url, doc.document.friendly_name);
     }
   }
 }
@@ -274,9 +228,11 @@ async function main() {
 
   // Fetch the case information, importing it if necessary
   await importCase(court, caseNumber);
+  console.log("case imported");
 
   // Update claims
   await updateClaims(court, caseNumber);
+  console.log("claims imported");
 
   // Process claims entries
   await findAndProcessClaims(court, caseNumber, searchKeyword);
