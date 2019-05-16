@@ -2261,3 +2261,122 @@ Output:
 
 This shows us that 5 docket entries were matched, but only one of them has a
 PDF, which was downloaded (docket entry 3.00000).
+
+## Advanced Filings Search
+
+Endpoint: `GET /cases/pacer/search-filings`
+
+Usage: `./pacer/search-filings.sh <case_uuid>`
+
+Example Usage:
+```shell
+ $ pacer/search-filings.js nysbke_247775
+``` 
+```javascript
+{
+  "facets" => {
+    "chapter" => {
+      "11" => 1023
+    },
+    "court" => {
+      "nysbke" => 1023
+    },
+    "date_filed" => {
+      "2014" => 1023
+    },
+    "judge_name" => {
+      "Martin Glenn" => 1023
+    },
+    "nature_of_suit" => []
+  },
+  "num_cases" => 1,
+  "num_found" => 1023,
+  "page_count" => 1,
+  "results" => [
+    {
+      "appeal_case_uuid" => undef,
+      "assets" => "Unknown",
+      "assigned_to" => undef,
+      "case_assets" => "Unknown",
+      "case_chapter" => 11,
+      "case_chapter_id" => 3,
+      "case_court" => "nysbke",
+      "case_court_id" => 72,
+      "case_date_filed" => "03/10/2014",
+      "case_id" => 3098692,
+      "case_id_external" => 247775,
+      "case_judge_name" => "Martin Glenn",
+      "case_liabilities" => "Unknown",
+      "case_naics_code" => undef,
+      "case_nature_of_suit_code" => undef,
+      "case_no" => "1:14-bk-10557",
+      "case_petition_id" => 1,
+      "case_title" => "Sbarro LLC",
+      "case_type" => "bk",
+      "case_type_id" => 1,
+      "cause" => undef,
+      "ch11_type" => undef,
+      "ch11_type_code" => undef,
+      "chapter" => 11,
+      "court" => "nysbke",
+      "court_code" => [
+        "ny",
+        "nys",
+        "02"
+      ],
+      "court_name" => "nysbke",
+      "created" => "2014-03-10T12:59:56.335718Z",
+      "date_closed" => undef,
+      "date_discharged" => undef,
+      "date_filed" => "03/10/2014",
+      "date_of_last_filing" => undef,
+      "date_plan_confirmed" => undef,
+      "date_terminated" => undef,
+      "disposition" => undef,
+      "document_type" => "cases",
+      "has_asset" => bless( do{\(my $o = 0)}, 'JSON::PP::Boolean' ),
+      "id" => "cases:nysbke_247775",
+      "industry" => undef,
+      "inner_hits" => "1023 matches",
+      "is_business_bankruptcy" => bless( do{\(my $o = 1)}, 'JSON::PP::Boolean' ),
+      "join" => {
+        "name" => "cases"
+      },
+      "judge_name" => "Martin Glenn",
+      "jurisdiction" => undef,
+      "jury_demand" => undef,
+      "lead_case_uuid" => undef,
+      "liabilities" => "Unknown",
+      "links" => {
+        "self" => {
+          "href" => "http://127.0.0.1:43959/cases/pacer/nysbke/1:14-bk-10557"
+        }
+      },
+      "modified" => "2017-07-09T05:13:32.653406Z",
+      "naics_code" => undef,
+      "nature_of_debt" => "Business",
+      "nature_of_suit_code" => undef,
+      "ncl_parties" => [
+        {
+          "name" => "Sbarro LLC",
+          "role" => "db"
+        },
+        {
+          "name" => "New Sbarro LLC",
+          "role" => "db"
+        },
+        {
+          "name" => "Belmonte, Christopher Robert",
+          "role" => "aty"
+        }
+      ],
+      "query" => "cases",
+      "referred_to" => undef,
+      "schedule_ab" => undef,
+      "title" => "Sbarro LLC",
+      "type_code" => 0,
+      "website" => undef
+    }
+  ]
+}
+```
